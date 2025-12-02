@@ -277,22 +277,6 @@ st.download_button(
     file_name='Therapie_Kontakte_Uebersicht_Vorlage.csv',
     mime='text/csv',
 )
-st.markdown("---") # Trennlinie zum eigentlichen Footer
-st.markdown(
-    """
-    *Hinweis: Dieses Tool ist ein inoffizieller Helper und steht in keiner Verbindung zu therapie.de.*
-
-    ---
-    
-    **Du bist es wert – gib nicht auf! ❤️**
-
-    *   [**GitHub-Projekt**](https://github.com/PhilGabriel/therapiefinder-opensource)
-    *   [**Lizenz (MIT)**](https://github.com/PhilGabriel/therapiefinder-opensource/blob/main/LICENSE)
-    *   [**Installationsanleitung**](https://github.com/PhilGabriel/therapiefinder-opensource/blob/main/INSTALLATION.md)
-    *   [**Mitarbeiten**](https://github.com/PhilGabriel/therapiefinder-opensource/blob/main/CONTRIBUTING.md)
-    """
-)
-
 # --- UI Layout: Hauptbereich - E-Mail-Vorlagen (zusätzlich) ---
 with st.expander("✉️ E-Mail-Vorlagen", expanded=False):
     st.markdown("""
@@ -344,4 +328,21 @@ Mit freundlichen Grüßen,
 
 [Dein Name]
 [Deine Telefonnummer]""", language="text")
+
+st.markdown("---")
+st.markdown(
+    """
+    <div style="text-align: center; margin-top: 50px; color: #555;">
+        <p><em>Hinweis: Dieses Tool ist ein inoffizieller Helper und steht in keiner Verbindung zu therapie.de.</em></p>
+        <h3 style="margin: 20px 0; color: #2e7d32;">Du bist es wert – gib nicht auf! ❤️</h3>
+        <p>
+            <a href="https://github.com/PhilGabriel/therapiefinder-opensource" target="_blank" style="text-decoration: none; color: #0366d6;">GitHub-Projekt</a> •
+            <a href="https://github.com/PhilGabriel/therapiefinder-opensource/blob/main/LICENSE" target="_blank" style="text-decoration: none; color: #0366d6;">Lizenz (MIT)</a> •
+            <a href="https://github.com/PhilGabriel/therapiefinder-opensource/blob/main/INSTALLATION.md" target="_blank" style="text-decoration: none; color: #0366d6;">Installation</a> •
+            <a href="https://github.com/PhilGabriel/therapiefinder-opensource/blob/main/CONTRIBUTING.md" target="_blank" style="text-decoration: none; color: #0366d6;">Mitarbeiten</a>
+        </p>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
 
