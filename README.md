@@ -57,9 +57,22 @@ Dieses Tool ist ein inoffizielles Hilfsprojekt und steht in keiner Verbindung zu
 
 Bitte nutze dieses Tool verantwortungsbewusst und respektiere die Serverlast der Webseite. Das Tool beinhaltet eingebaute Pausen, um die Anfragen zu drosseln. Verwende die gesammelten Daten nur für deine persönliche Therapieplatzsuche.
 
+## ⚖️ Haftungsausschluss
+
+Die Nutzung dieses Tools erfolgt auf eigene Gefahr. Der Autor übernimmt keine Haftung für Schäden, die durch die Nutzung entstehen, insbesondere nicht für rechtliche Konsequenzen, die aus dem Crawlen von Webseiten resultieren könnten. Bitte informiere dich über die AGB der Zielwebseite und handele verantwortungsvoll.
+
 ## 🤝 Mitwirken
 
 Pull Requests sind willkommen! Wenn du Ideen hast, wie man das Tool verbessern kann, eröffne gerne ein Issue.
+
+## ❤️ Danksagung & Tech-Stack
+
+Ein großes Dankeschön an die Entwickler der Tools, die dieses Projekt möglich machen:
+
+*   **[Streamlit](https://streamlit.io/)** - Ermöglichte die schnelle Entwicklung der Benutzeroberfläche.
+*   **[Beautiful Soup 4](https://www.crummy.com/software/BeautifulSoup/)** - Das Herzstück für das Parsen der Webseiten.
+*   **[Pandas](https://pandas.pydata.org/)** - Für die effiziente Datenverarbeitung und den CSV-Export.
+*   **[Google Gemini](https://deepmind.google/technologies/gemini/)** - KI-Unterstützung bei der Code-Entwicklung und Optimierung.
 
 ## 📄 Lizenz
 
