@@ -45,8 +45,11 @@ Um das Beste aus diesem Tool herauszuholen und deine Suche effizient zu gestalte
 
 *   **Einfache Suche:** Filterung nach Postleitzahl, Verfahren, Abrechnungsmethode, Therapieangebot und Arbeitsschwerpunkt.
 *   **Sortierung nach Aktualität:** Ergebnisse werden automatisch so sortiert, dass Profile, die zuletzt bearbeitet wurden, ganz oben stehen.
+*   **E-Mail-Vorlagen:** Integrierte, kopierbare Textbausteine für Erstkontakt, Wartelisten-Anfragen und Kostenerstattungsverfahren.
+*   **Bewerbungs-Tracker:** Lade deine Suchergebnisse oder eine leere "Kontakte-Übersicht" als CSV herunter, um den Überblick über deine Anfragen zu behalten.
 *   **Erweiterte Details:** Versucht automatisch, E-Mail-Adressen (auch "verschlüsselte") und Webseiten-Links aus den Profilen zu extrahieren.
-*   **CSV-Export:** Lade deine Suchergebnisse bequem als Excel-kompatible CSV-Datei herunter.
+*   **Sicherheit & Fairness:** Intelligente Drosselung und Cooldown-Phasen schützen die Server von `therapie.de` vor Überlastung.
+*   **Docker Support:** Einfache Installation und Ausführung in einem Container möglich.
 *   **Lokale Ausführung:** Deine Daten bleiben bei dir. Keine Cloud, kein Tracking.
 
 ## 🚀 Installation & Start
@@ -93,7 +96,8 @@ Die Nutzung dieses Tools erfolgt auf eigene Gefahr. Der Autor übernimmt keine H
 
 ## 🐛 Bekannte Einschränkungen & mögliche Probleme
 
-*   **Geschwindigkeit:** Die Suche kann langsam erscheinen. Das liegt daran, dass das Tool bewusst Pausen zwischen den Anfragen einlegt, um die Server von `therapie.de` nicht zu überlasten. Dies ist wichtig, um die Nachhaltigkeit des Tools zu gewährleisten.
+*   **Zunehmende Wartezeit:** Um den Server zu schonen, erhöht sich die Wartezeit zwischen den Anfragen mit jeder durchgeführten Suche in einer Sitzung leicht (+0,5s). Das ist gewolltes Verhalten.
+*   **Geschwindigkeit:** Die Suche kann langsam erscheinen. Das liegt daran, dass das Tool bewusst Pausen zwischen den Anfragen einlegt.
 *   **Unvollständige Ergebnisse:** Manchmal werden nicht alle erwarteten Informationen (z.B. E-Mail-Adressen) gefunden. Dies kann an unterschiedlichen Formatierungen auf den Profilseiten liegen oder an Verschlüsselungstechniken von `therapie.de`.
 *   **Fehlende Therapeut:innen:** Wenn du trotz lockerer Filter keine Therapeut:innen findest, kann es sein, dass zum aktuellen Zeitpunkt keine passenden Profile auf `therapie.de` verfügbar sind, die deinen Kriterien entsprechen.
 
