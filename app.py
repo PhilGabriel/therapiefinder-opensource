@@ -51,7 +51,8 @@ st.set_page_config(page_title="Therapiefinder Open Source", page_icon="🧘", la
 st.title("🧘 Therapiefinder Open Source")
 st.markdown("""
 Dieses Tool durchsucht **therapie.de** nach aktuellen Einträgen und sortiert diese nach dem Datum der letzten Änderung.
-So findest du Profile, die kürzlich aktualisiert wurden, was auf freie Kapazitäten hindeuten könnte.
+So findest du Profile, die kürzlich aktualisiert wurden, was auf freie Kapazitäten hindeuten könnte. Bitte benutze das Tool mit Bedacht. Jedes mal wenn du eine Suche startest, ruft das Tool viele Seiten ab.
+Das führt zu höheren Serverlasten bei Therapie.de. Sei dir also bei deiner Suchanfrage dessen bewusst.
 """)
 
 with st.sidebar:
