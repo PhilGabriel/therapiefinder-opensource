@@ -20,6 +20,18 @@ Dieses Projekt bietet eine benutzerfreundliche Web-Oberfläche, um Therapeuten z
 ## Warum dieses Projekt?
 Ich bin selbst Betroffener. Ich habe selbst die frustrierende Erfahrung gemacht 100x Nachrichten an Therapeut:inne zu schicken und finde den Prozess einfach nur quälend. Gleichzeitig hasse ich es zu telefonieren - also habe ich mir ein Tool gebaut das mir schnell die Arbeit abnimmt. Das ganze so - dass es möglichst einfach ist. Dieses Projekt bleibt solange aktiv, bis es die gesetzlichen Krankenkassen hinbekommen eine zentrale Datenbank mit allen Therapeut:innen inkl. Kontaktmöglichkeit zu etablieren, so dass es die geforderte Anonymität gegenüber den Betroffenen sicherstellt und für jede/n zugägnlich ist. Verbunden ist dieses Projekt ebenfalls mit dem Appell: Hebt die Kassensitzpflicht für Psyschotherapeut:innen auf. 
 
+## 🆘 Wichtiger Hinweis & Unterstützung
+
+Dieses Tool ist ein Werkzeug, das dir hilft, schneller Kontaktmöglichkeiten zu finden. **Das Anschreiben oder Anrufen der Therapeuten übernimmt es nicht – diesen Schritt musst du selbst gehen.**
+
+Es ist ein großer und mutiger Schritt, dass du dich um einen Therapieplatz bemühst. Auch wenn die Suche oft frustrierend, langwierig und kräftezehrend sein kann: **Lass dich nicht entmutigen.** Du bist es wert, Hilfe zu bekommen, und du bist auf dem richtigen Weg.
+
+**Wenn du sofort Hilfe brauchst:**
+
+*   **116 117:** Der ärztliche Bereitschaftsdienst (rund um die Uhr, hilft auch bei der Terminvermittlung für Erstgespräche).
+*   **Telefonseelsorge:** `0800 / 111 0 111` oder `0800 / 111 0 222` oder `116 123` (kostenlos, anonym, rund um die Uhr).
+*   **Im absoluten Notfall (Suizidgedanken, Fremdgefährdung):** Wähle bitte sofort den Notruf **112** oder begib dich in die Notaufnahme der nächsten psychiatrischen Klinik.
+
 ## 💡 Tipps für eine erfolgreiche Suche
 
 Um das Beste aus diesem Tool herauszuholen und deine Suche effizient zu gestalten, beachte folgende Hinweise:
