@@ -36,7 +36,7 @@ def get_page_content(session, url, params=None):
         print(f"Fehler beim Abrufen von {url}: {e}")
         return None
 
-def scrape_therapists(zip_code, verfahren, abrechnung, angebot, schwerpunkt, max_pages=2, additional_delay=0.0):
+def scrape_therapists(zip_code, verfahren, abrechnung, angebot, schwerpunkt, geschlecht, terminzeitraum, umkreis, max_pages=2, additional_delay=0.0):
     """
     Hauptfunktion zum Sammeln der Therapeuten-Daten.
     
@@ -49,6 +49,9 @@ def scrape_therapists(zip_code, verfahren, abrechnung, angebot, schwerpunkt, max
         abrechnung (str): ID der Abrechnungsmethode.
         angebot (str): ID des Therapieangebots.
         schwerpunkt (str): ID des Arbeitsschwerpunkts.
+        geschlecht (str): ID des Geschlechts (1=w, 2=m).
+        terminzeitraum (str): ID der Wartezeit/Verfügbarkeit.
+        umkreis (str): Radius in km (0, 5, 10, ...).
         max_pages (int): Wie viele Seiten der Suchergebnisse durchsucht werden sollen.
         additional_delay (float): Zusätzliche Wartezeit in Sekunden pro Anfrage (zur Drosselung).
         
@@ -63,7 +66,9 @@ def scrape_therapists(zip_code, verfahren, abrechnung, angebot, schwerpunkt, max
         "abrechnungsverfahren": abrechnung,
         "therapieangebot": angebot,
         "arbeitsschwerpunkt": schwerpunkt,
-        "terminzeitraum": 1 # 1 steht oft für "kurzfristig" oder allgemeine Suche
+        "geschlecht": geschlecht,
+        "terminzeitraum": terminzeitraum,
+        "umkreis": umkreis
     }
 
     therapists = []

@@ -49,6 +49,31 @@ SCHWERPUNKT_OPTIONS = {
     "Schmerzen": "20",
 }
 
+GESCHLECHT_OPTIONS = {
+    "Egal": "",
+    "Weiblich": "1",
+    "Männlich": "2",
+}
+
+WARTEZEIT_OPTIONS = {
+    "Egal": "1", # Standardwert, wenn keine Auswahl getroffen wird
+    "Freie Plätze / Kurzfristig": "7",
+    "Wartezeit bis 3 Monate": "2",
+    "Wartezeit 3 bis 6 Monate": "3",
+    "Wartezeit 6 bis 12 Monate": "4",
+    "Wartezeit > 1 Jahr": "5",
+    "Wartezeit unbekannt": "6",
+}
+
+UMKREIS_OPTIONS = {
+    "Kein Umkreis (nur genaue PLZ)": "0",
+    "5 km": "5",
+    "10 km": "10",
+    "20 km": "20",
+    "50 km": "50",
+    "100 km": "100",
+}
+
 # --- Session State Initialisierung ---
 # Wir merken uns Dinge über die Session hinweg (z.B. wann zuletzt gesucht wurde).
 if 'last_search_time' not in st.session_state:
@@ -113,6 +138,24 @@ with st.sidebar:
         "Schwerpunkt", 
         options=list(SCHWERPUNKT_OPTIONS.keys()),
         help="Hast du ein spezielles Anliegen oder eine Diagnose? (z.B. Depression, ADHS, Angst)"
+    )
+
+    selected_geschlecht = st.selectbox(
+        "Geschlecht",
+        options=list(GESCHLECHT_OPTIONS.keys()),
+        help="Bevorzugst du eine Therapeutin oder einen Therapeuten?"
+    )
+
+    selected_wartezeit = st.selectbox(
+        "Verfügbarkeit / Wartezeit",
+        options=list(WARTEZEIT_OPTIONS.keys()),
+        help="Filtere nach Therapeuten, die explizit freie Plätze oder kurzfristige Termine melden."
+    )
+
+    selected_umkreis = st.selectbox(
+        "Umkreis (km)",
+        options=list(UMKREIS_OPTIONS.keys()),
+        help="Suche in einem Umkreis um die angegebene Postleitzahl. 'Kein Umkreis' sucht nur in der exakten PLZ."
     )
     
     # Slider
@@ -207,6 +250,9 @@ if start_search:
             abrechnung_id = ABRECHNUNG_OPTIONS[selected_abrechnung]
             angebot_id = ANGEBOT_OPTIONS[selected_angebot]
             schwerpunkt_id = SCHWERPUNKT_OPTIONS[selected_schwerpunkt]
+            geschlecht_id = GESCHLECHT_OPTIONS[selected_geschlecht]
+            wartezeit_id = WARTEZEIT_OPTIONS[selected_wartezeit]
+            umkreis_id = UMKREIS_OPTIONS[selected_umkreis]
             
             try:
                 # Scraper aufrufen mit der aktuellen "Strafe"
@@ -216,6 +262,9 @@ if start_search:
                     abrechnung=abrechnung_id, 
                     angebot=angebot_id, 
                     schwerpunkt=schwerpunkt_id,
+                    geschlecht=geschlecht_id,
+                    terminzeitraum=wartezeit_id,
+                    umkreis=umkreis_id,
                     max_pages=max_pages,
                     additional_delay=st.session_state.delay_penalty
                 )
