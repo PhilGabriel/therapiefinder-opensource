@@ -96,6 +96,31 @@ Dein Browser sollte sich nun automatisch öffnen und das Tool anzeigen. Falls ni
 
 ---
 
+## 🚀 Alternative Installation: Mit Docker
+
+Wenn du [Docker](https://www.docker.com/) auf deinem System installiert hast, kannst du das Tool auch ganz ohne manuelle Python-Installation nutzen. Das ist besonders praktisch, wenn du keine Python-Umgebung einrichten möchtest.
+
+1.  **Code herunterladen** (siehe Schritt 2, entweder mit Git oder als ZIP).
+    ```bash
+    git clone https://github.com/PhilGabriel/therapiefinder-opensource.git
+    cd therapiefinder-opensource
+    ```
+
+2.  **Docker Image bauen:**
+    Öffne dein Terminal/Eingabeaufforderung im Projektordner und gib ein:
+    ```bash
+    docker build -t therapiefinder-app .
+    ```
+    *(Dies kann beim ersten Mal etwas dauern, da Docker alle Abhängigkeiten herunterlädt.)*
+
+3.  **Docker Container starten:**
+    ```bash
+    docker run -p 8501:8501 therapiefinder-app
+    ```
+    Dieser Befehl startet das Tool im Container und macht es auf deinem Computer unter `http://localhost:8501` verfügbar.
+
+---
+
 ## ❓ Fehlerbehebung (Troubleshooting)
 
 Hier sind Lösungen für die häufigsten Probleme:

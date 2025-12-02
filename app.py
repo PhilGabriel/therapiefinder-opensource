@@ -124,6 +124,60 @@ with st.sidebar:
     # Der "Start"-Button
     start_search = st.button("Suche starten", type="primary")
 
+    st.markdown("---") # Trennlinie
+
+    # E-Mail-Vorlagen zum Kopieren
+    with st.expander("✉️ E-Mail-Vorlagen zum Kopieren"):
+        st.markdown("""
+        Hier findest du Vorlagen, die dir das Anschreiben von Therapeuten erleichtern. 
+        Kopiere den Text, füge die Details ein und sende die E-Mail.
+        """)
+
+        st.subheader("Anfrage Erstgespräch (Standard)")
+        st.code(f"""Sehr geehrte/r Frau/Herr [Name des Therapeuten],
+
+ich bin auf der Suche nach einem Therapieplatz und habe Ihr Profil auf therapie.de gefunden. Ich leide unter [kurze Beschreibung des Problems, z.B. Angstzuständen / Depressionen] und würde gerne ein Erstgespräch mit Ihnen vereinbaren, um zu prüfen, ob eine Therapie bei Ihnen für mich in Frage kommt.
+
+Ich bin [Versicherungsstatus, z.B. gesetzlich / privat] versichert.
+
+Über eine Rückmeldung freue ich mich sehr.
+
+Mit freundlichen Grüßen,
+
+[Dein Name]
+[Deine Telefonnummer]""", language="text")
+
+        st.subheader("Anfrage Warteliste")
+        st.code(f"""Sehr geehrte/r Frau/Herr [Name des Therapeuten],
+
+ich bin auf der Suche nach einem Therapieplatz und habe Ihr Profil auf therapie.de gefunden. Mir ist bewusst, dass es oft Wartezeiten gibt. Ich würde mich dennoch gerne für einen Therapieplatz vormerken lassen und mich ggf. auf Ihre Warteliste setzen lassen.
+
+Ich leide unter [kurze Beschreibung des Problems, z.B. Angstzuständen / Depressionen] und bin [Versicherungsstatus, z.B. gesetzlich / privat] versichert.
+
+Über eine Rückmeldung freue ich mich sehr.
+
+Mit freundlichen Grüßen,
+
+[Dein Name]
+[Deine Telefonnummer]""", language="text")
+        
+        st.subheader("Anfrage Kostenerstattungsverfahren")
+        st.warning("(Bitte informiere dich vorher bei deiner Krankenkasse über die Voraussetzungen!)")
+        st.code(f"""Sehr geehrte/r Frau/Herr [Name des Therapeuten],
+
+ich bin auf der dringenden Suche nach einem Therapieplatz und habe Ihr Profil auf therapie.de gefunden. Da ich innerhalb einer angemessenen Frist keinen kassenärztlich zugelassenen Therapieplatz finden konnte, prüfe ich derzeit die Möglichkeit eines Kostenerstattungsverfahrens bei meiner Krankenkasse.
+
+Ich leide unter [kurze Beschreibung des Problems, z.B. Angstzuständen / Depressionen] und würde gerne ein Erstgespräch mit Ihnen vereinbaren, um zu klären, ob Sie mich im Rahmen eines Kostenerstattungsverfahrens behandeln würden.
+
+Ich bin [Versicherungsstatus, z.B. gesetzlich / privat] versichert.
+
+Über eine Rückmeldung freue ich mich sehr.
+
+Mit freundlichen Grüßen,
+
+[Dein Name]
+[Deine Telefonnummer]""", language="text")
+
 # --- Hauptlogik ---
 if start_search:
     # 1. Cooldown Check (Sicherheitsmechanismus)
@@ -201,6 +255,28 @@ if start_search:
             except Exception as e:
                 st.error(f"Ein Fehler ist aufgetreten: {e}")
 
+st.markdown("---")
+# Download-Button für das Therapie-Tagebuch (Tracking-Vorlage)
+st.markdown("### 📊 Dein Therapie-Tagebuch")
+st.markdown("Um den Überblick zu behalten, lade dir hier eine Vorlage für dein persönliches Therapie-Tagebuch herunter. Du kannst es mit Excel oder Google Sheets bearbeiten.")
+
+tracking_template_columns = [
+    "Name des Therapeuten",
+    "Datum des Kontakts",
+    "Kontaktaufnahme per (Telefon/E-Mail)",
+    "Status (z.B. Warteliste, Termin erhalten, Absage, kein Rückruf)",
+    "Notizen",
+    "Nächster Schritt"
+]
+tracking_df = pd.DataFrame(columns=tracking_template_columns)
+tracking_csv = tracking_df.to_csv(index=False).encode('utf-8')
+
+st.download_button(
+    label="⬇️ Vorlage Therapie-Tagebuch herunterladen (CSV)",
+    data=tracking_csv,
+    file_name='Therapie-Tagebuch_Vorlage.csv',
+    mime='text/csv',
+)
 st.markdown("---")
 st.markdown("*Hinweis: Dieses Tool ist ein inoffizieller Helper und steht in keiner Verbindung zu therapie.de.*")
 

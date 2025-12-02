@@ -53,6 +53,9 @@ Um das Beste aus diesem Tool herauszuholen und deine Suche effizient zu gestalte
 
 Eine **ausführliche Schritt-für-Schritt-Anleitung** (auch für Anfänger geeignet) sowie Hilfe bei Problemen findest du in der Datei **[INSTALLATION.md](INSTALLATION.md)**.
 
+**Schnellstart mit Docker:**
+Wenn du [Docker](https://www.docker.com/) installiert hast, kannst du das Tool mit wenigen Befehlen starten. Siehe [INSTALLATION.md](INSTALLATION.md) für Details.
+
 **Kurzfassung für Profis:**
 
 ```bash
