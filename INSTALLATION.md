@@ -1,0 +1,126 @@
+# 📖 Detaillierte Installationsanleitung & Fehlerbehebung
+
+Willkommen! Diese Anleitung führt dich Schritt für Schritt durch die Installation des **Therapiefinder Open Source** Tools. Sie ist so geschrieben, dass auch Personen ohne Programmierkenntnisse sie befolgen können.
+
+## 1. Voraussetzungen
+
+Bevor wir starten, benötigst du zwei Dinge auf deinem Computer:
+
+1.  **Python:** Das ist die Programmiersprache, in der das Tool geschrieben ist.
+2.  **Git (Optional):** Ein Werkzeug, um den Code herunterzuladen. (Du kannst den Code auch als ZIP-Datei herunterladen, wenn du Git nicht installieren möchtest).
+
+### Python installieren
+
+*   **Windows:**
+    *   Lade den Installer von [python.org](https://www.python.org/downloads/) herunter.
+    *   **WICHTIG:** Setze beim Start der Installation unbedingt das Häkchen bei **"Add Python to PATH"** (ganz unten im ersten Fenster). Das ist entscheidend!
+*   **macOS:**
+    *   macOS hat oft schon Python, aber meist eine alte Version. Lade am besten die aktuelle Version von [python.org](https://www.python.org/downloads/) herunter und installiere sie.
+*   **Linux:**
+    *   In der Regel bereits installiert. Falls nicht: `sudo apt-get install python3 python3-venv python3-pip` (für Ubuntu/Debian).
+
+---
+
+## 2. Code herunterladen
+
+### Variante A: Mit Git (Empfohlen)
+Öffne dein Terminal (Mac/Linux) oder die Eingabeaufforderung/PowerShell (Windows) und gib ein:
+```bash
+git clone https://github.com/PhilGabriel/therapiefinder-opensource.git
+cd therapiefinder-opensource
+```
+
+### Variante B: Als ZIP-Datei
+1.  Gehe auf die [GitHub-Seite des Projekts](https://github.com/PhilGabriel/therapiefinder-opensource).
+2.  Klicke auf den grünen Button **Code** und dann auf **Download ZIP**.
+3.  Entpacke die Datei in einen Ordner deiner Wahl.
+4.  Öffne diesen Ordner in deinem Terminal/Eingabeaufforderung.
+    *   *Tipp für Windows:* Öffne den Ordner im Explorer, klicke oben in die Adressleiste, tippe `cmd` ein und drücke Enter.
+
+---
+
+## 3. Installation einrichten
+
+Wir nutzen eine "virtuelle Umgebung". Das ist wie ein eigener kleiner Raum für dieses Programm, damit es sich nicht mit anderen Programmen auf deinem Computer beißt.
+
+### Schritt 3.1: Virtuelle Umgebung erstellen
+
+**Windows:**
+```cmd
+python -m venv venv
+```
+
+**Mac / Linux:**
+```bash
+python3 -m venv venv
+```
+
+### Schritt 3.2: Virtuelle Umgebung aktivieren
+
+Dies musst du **jedes Mal** tun, wenn du ein neues Terminal-Fenster öffnest, um das Tool zu benutzen.
+
+**Windows (Eingabeaufforderung / cmd):**
+```cmd
+venv\Scripts\activate
+```
+*Wenn es geklappt hat, steht jetzt `(venv)` ganz am Anfang deiner Zeile.*
+
+**Windows (PowerShell):**
+```powershell
+.\venv\Scripts\Activate.ps1
+```
+*Falls du einen Fehler wegen "Skriptausführung" bekommst, nutze die Eingabeaufforderung (cmd) statt PowerShell.*
+
+**Mac / Linux:**
+```bash
+source venv/bin/activate
+```
+
+### Schritt 3.3: Pakete installieren
+
+Jetzt laden wir die notwendigen Hilfsprogramme herunter. Stelle sicher, dass `(venv)` am Zeilenanfang steht.
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+## 4. Starten
+
+```bash
+streamlit run app.py
+```
+
+Dein Browser sollte sich nun automatisch öffnen und das Tool anzeigen. Falls nicht, kopiere die Adresse (meist `http://localhost:8501`), die im schwarzen Fenster angezeigt wird, in deinen Browser.
+
+---
+
+## ❓ Fehlerbehebung (Troubleshooting)
+
+Hier sind Lösungen für die häufigsten Probleme:
+
+### 1. "Befehl nicht gefunden" (Command not found) bei `python` oder `pip`
+*   **Ursache:** Python ist nicht installiert oder wurde nicht dem "PATH" hinzugefügt.
+*   **Lösung Windows:** Installiere Python neu und vergiss das Häkchen bei **"Add Python to PATH"** nicht.
+*   **Lösung Mac/Linux:** Versuche `python3` und `pip3` statt `python` und `pip`.
+
+### 2. Fehlermeldung: `ModuleNotFoundError: No module named ...`
+*   **Ursache:** Die Abhängigkeiten wurden nicht installiert oder die virtuelle Umgebung ist nicht aktiv.
+*   **Lösung:**
+    1.  Prüfe, ob `(venv)` am Zeilenanfang steht.
+    2.  Wenn nein: Aktiviere sie (siehe Schritt 3.2).
+    3.  Wenn ja: Führe `pip install -r requirements.txt` noch einmal aus.
+
+### 3. Rote Fehlermeldungen im Browser
+*   **Ursache:** Das Internet ist weg oder `therapie.de` hat die Struktur geändert.
+*   **Lösung:** Überprüfe deine Internetverbindung. Wenn das Problem bestehen bleibt, erstelle bitte ein "Issue" auf GitHub, damit wir das reparieren können.
+
+### 4. "Port 8501 is already in use"
+*   **Ursache:** Das Programm läuft bereits im Hintergrund oder ein anderes Programm nutzt diesen Port.
+*   **Lösung:**
+    *   Schließe andere Terminal-Fenster, in denen das Tool läuft.
+    *   Oder starte das Tool auf einem anderen Port: `streamlit run app.py --server.port 8502`
+
+### 5. PowerShell Fehler: "Das Ausführen von Skripts ist deaktiviert"
+*   **Lösung:** Nutze stattdessen die klassische "Eingabeaufforderung" (CMD) oder erlaube Skripte in PowerShell (google nach "PowerShell Set-ExecutionPolicy"). CMD ist für Anfänger meist einfacher.

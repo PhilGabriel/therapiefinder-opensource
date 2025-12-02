@@ -18,38 +18,25 @@ Ich bin selbst Betroffener. Ich habe selbst die frustrierende Erfahrung gemacht 
 
 ## 🚀 Installation & Start
 
-Du benötigst [Python](https://www.python.org/) (Version 3.8 oder höher) auf deinem Computer.
+Eine **ausführliche Schritt-für-Schritt-Anleitung** (auch für Anfänger geeignet) sowie Hilfe bei Problemen findest du in der Datei **[INSTALLATION.md](INSTALLATION.md)**.
 
-1.  **Repository klonen:**
-    ```bash
-    git clone https://github.com/DEIN-USERNAME/therapiefinder-opensource.git
-    cd therapiefinder-opensource
-    ```
+**Kurzfassung für Profis:**
 
-2.  **Abhängigkeiten installieren:**
-    Es wird empfohlen, eine virtuelle Umgebung zu nutzen:
-    ```bash
-    # Linux/Mac
-    python3 -m venv venv
-    source venv/bin/activate
+```bash
+# Repository klonen
+git clone https://github.com/PhilGabriel/therapiefinder-opensource.git
+cd therapiefinder-opensource
 
-    # Windows
-    python -m venv venv
-    venv\Scripts\activate
-    ```
-    
-    Dann die Pakete installieren:
-    ```bash
-    pip install -r requirements.txt
-    ```
+# Virtuelle Umgebung erstellen & aktivieren
+python3 -m venv venv
+source venv/bin/activate  # Windows: venv\Scripts\activate
 
-3.  **App starten:**
-    ```bash
-    streamlit run app.py
-    ```
+# Abhängigkeiten installieren
+pip install -r requirements.txt
 
-4.  **Öffnen:**
-    Dein Browser sollte sich automatisch öffnen. Falls nicht, rufe `http://localhost:8501` auf.
+# Starten
+streamlit run app.py
+```
 
 ## ⚠️ Rechtlicher Hinweis
 
