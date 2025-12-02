@@ -36,7 +36,7 @@ def get_page_content(session, url, params=None):
         print(f"Fehler beim Abrufen von {url}: {e}")
         return None
 
-def scrape_therapists(zip_code, verfahren, abrechnung, angebot, schwerpunkt, max_pages=2):
+def scrape_therapists(zip_code, verfahren, abrechnung, angebot, schwerpunkt, max_pages=2, additional_delay=0.0):
     """
     Hauptfunktion zum Sammeln der Therapeuten-Daten.
     
@@ -50,6 +50,7 @@ def scrape_therapists(zip_code, verfahren, abrechnung, angebot, schwerpunkt, max
         angebot (str): ID des Therapieangebots.
         schwerpunkt (str): ID des Arbeitsschwerpunkts.
         max_pages (int): Wie viele Seiten der Suchergebnisse durchsucht werden sollen.
+        additional_delay (float): Zusätzliche Wartezeit in Sekunden pro Anfrage (zur Drosselung).
         
     Returns:
         list: Eine Liste von Dictionaries mit den Daten der Therapeuten.
@@ -101,8 +102,8 @@ def scrape_therapists(zip_code, verfahren, abrechnung, angebot, schwerpunkt, max
                     if not any(t['url'] == profile_url for t in therapists):
                         therapists.append({"name": name, "url": profile_url})
             
-            # WICHTIG: Kurze Pause, um den Server nicht zu überlasten ("Politeness")
-            time.sleep(random.uniform(0.5, 1.5)) 
+            # WICHTIG: Kurze Pause + dynamische Drosselung
+            time.sleep(random.uniform(0.5, 1.5) + additional_delay) 
 
     # --- SCHRITT 2: Details pro Profil laden ---
     # Jetzt besuchen wir jedes gefundene Profil einzeln.
@@ -150,9 +151,8 @@ def scrape_therapists(zip_code, verfahren, abrechnung, angebot, schwerpunkt, max
 
             enhanced_therapists.append(therapist)
             
-            # WICHTIG: Wieder eine Pause. Bei 20 Therapeuten sind das 20 Requests!
-            # Wir wollen nicht wie eine DoS-Attacke wirken.
-            time.sleep(random.uniform(0.5, 1.0))
+            # WICHTIG: Wieder Pause + dynamische Drosselung
+            time.sleep(random.uniform(0.5, 1.0) + additional_delay)
             
     # --- SCHRITT 3: Sortierung ---
     # Wir sortieren die Ergebnisse so, dass das aktuellste Datum oben steht.

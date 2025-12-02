@@ -1,5 +1,7 @@
 import streamlit as st
 import pandas as pd
+import time
+from datetime import datetime, timedelta
 from scraper_lib import scrape_therapists
 
 # --- Konfiguration & Konstanten ---
@@ -16,8 +18,6 @@ VERFAHREN_OPTIONS = {
     "Gestalttherapie": "4",
     "EMDR": "36",
     "Traumatherapie": "30",
-    # Bei Bedarf können hier weitere Verfahren ergänzt werden.
-    # Die IDs findet man im Quelltext der therapie.de Suchmaske.
 }
 
 ABRECHNUNG_OPTIONS = {
@@ -49,76 +49,136 @@ SCHWERPUNKT_OPTIONS = {
     "Schmerzen": "20",
 }
 
+# --- Session State Initialisierung ---
+# Wir merken uns Dinge über die Session hinweg (z.B. wann zuletzt gesucht wurde).
+if 'last_search_time' not in st.session_state:
+    st.session_state.last_search_time = None
+if 'delay_penalty' not in st.session_state:
+    st.session_state.delay_penalty = 0.0
+
 # --- Streamlit Page Config ---
-# Setzt den Titel des Browser-Tabs und das Icon.
 st.set_page_config(page_title="Therapiefinder Open Source", page_icon="🧘", layout="wide")
 
 # --- UI Layout: Hauptbereich ---
 st.title("🧘 Therapiefinder Open Source")
-st.markdown("""
-Dieses Tool durchsucht **therapie.de** nach aktuellen Einträgen und sortiert diese nach dem Datum der letzten Änderung.
-So findest du Profile, die kürzlich aktualisiert wurden, was auf freie Kapazitäten hindeuten könnte. Bitte benutze das Tool mit Bedacht. Jedes mal wenn du eine Suche startest, ruft das Tool viele Seiten ab.
-Das führt zu höheren Serverlasten bei Therapie.de. Sei dir also bei deiner Suchanfrage dessen bewusst.
+
+# Anleitung in einem Expander (aufklappbar)
+with st.expander("📖 Anleitung: So funktioniert's", expanded=True):
+    st.markdown("""
+    1.  **Sucheinstellungen:** Gib links in der Leiste deine Postleitzahl ein und wähle Filter (z.B. Verfahren).
+    2.  **Starten:** Klicke auf "Suche starten".
+    3.  **Ergebnisse:** Warte kurz. Die Ergebnisse erscheinen hier.
+    4.  **Sortierung:** Die Liste ist automatisch sortiert: **Zuletzt aktualisierte Profile stehen oben.**
+    5.  **Kontakt:** Nutze die Links oder E-Mail-Buttons, um Therapeuten zu kontaktieren.
+    """)
+
+st.info("""
+**Hinweis zur Serverlast:** Um die Server von *therapie.de* zu schonen, baut dieses Tool automatisch Pausen ein. 
+Zusätzlich wird die Wartezeit mit jeder durchgeführten Suche in dieser Sitzung leicht erhöht (0,5s). 
+Bitte nutze das Tool verantwortungsbewusst.
 """)
 
 # --- UI Layout: Seitenleiste (Sidebar) ---
 with st.sidebar:
     st.header("🔍 Sucheinstellungen")
     
-    # Eingabefeld für die Postleitzahl (begrenzt auf 5 Zeichen)
-    zip_code = st.text_input("Postleitzahl", value="50737", max_chars=5)
+    # Eingabefeld für die Postleitzahl mit Tooltip
+    zip_code = st.text_input(
+        "Postleitzahl", 
+        value="50737", 
+        max_chars=5,
+        help="Gib hier die 5-stellige Postleitzahl des Ortes ein, in dem du suchen möchtest."
+    )
     
-    # Dropdown-Menüs für die Filter
-    selected_verfahren = st.selectbox("Verfahren", options=list(VERFAHREN_OPTIONS.keys()))
-    selected_abrechnung = st.selectbox("Abrechnung", options=list(ABRECHNUNG_OPTIONS.keys()))
-    selected_angebot = st.selectbox("Angebot", options=list(ANGEBOT_OPTIONS.keys()))
-    selected_schwerpunkt = st.selectbox("Schwerpunkt", options=list(SCHWERPUNKT_OPTIONS.keys()))
+    # Dropdown-Menüs mit Tooltips
+    selected_verfahren = st.selectbox(
+        "Verfahren", 
+        options=list(VERFAHREN_OPTIONS.keys()),
+        help="Welches Therapieverfahren suchst du? (z.B. Verhaltenstherapie oder Psychoanalyse)"
+    )
     
-    # Slider für die Anzahl der zu durchsuchenden Seiten (Performance-Bremse für Nutzer)
-    max_pages = st.slider("Anzahl zu durchsuchender Seiten", 1, 5, 2)
+    selected_abrechnung = st.selectbox(
+        "Abrechnung", 
+        options=list(ABRECHNUNG_OPTIONS.keys()),
+        help="Wie möchtest du die Therapie bezahlen? Gesetzlich (GKV), Privat oder als Selbstzahler?"
+    )
+    
+    selected_angebot = st.selectbox(
+        "Angebot", 
+        options=list(ANGEBOT_OPTIONS.keys()),
+        help="Für wen ist die Therapie? Einzelperson, Paar, Gruppe oder Kind/Jugendlicher?"
+    )
+    
+    selected_schwerpunkt = st.selectbox(
+        "Schwerpunkt", 
+        options=list(SCHWERPUNKT_OPTIONS.keys()),
+        help="Hast du ein spezielles Anliegen oder eine Diagnose? (z.B. Depression, ADHS, Angst)"
+    )
+    
+    # Slider
+    max_pages = st.slider(
+        "Anzahl zu durchsuchender Seiten", 1, 5, 2,
+        help="Wie viele Ergebnisseiten auf therapie.de sollen durchsucht werden? Mehr Seiten = Längere Wartezeit."
+    )
     
     # Der "Start"-Button
     start_search = st.button("Suche starten", type="primary")
 
 # --- Hauptlogik ---
 if start_search:
-    # Validierung der Eingabe
+    # 1. Cooldown Check (Sicherheitsmechanismus)
+    now = datetime.now()
+    cooldown_seconds = 15
+    
+    if st.session_state.last_search_time is not None:
+        elapsed = (now - st.session_state.last_search_time).total_seconds()
+        if elapsed < cooldown_seconds:
+            wait_time = int(cooldown_seconds - elapsed)
+            st.error(f"🛑 Bitte warte noch {wait_time} Sekunden vor der nächsten Suche, um den Server nicht zu überlasten.")
+            st.stop() # Bricht die Ausführung hier ab
+            
+    # 2. Validierung
     if not zip_code or len(zip_code) != 5:
         st.error("Bitte gib eine gültige 5-stellige Postleitzahl ein.")
     else:
-        # Lade-Animation anzeigen
-        with st.spinner(f"Suche läuft für PLZ {zip_code}... Bitte warten (dies kann einige Sekunden dauern)"):
+        # Aktuelle Strafe anzeigen (nur wenn > 0)
+        penalty_msg = ""
+        if st.session_state.delay_penalty > 0:
+            penalty_msg = f" (Drosselung aktiv: +{st.session_state.delay_penalty}s pro Anfrage)"
             
-            # Hole die IDs aus den Dictionaries anhand der Auswahl
+        with st.spinner(f"Suche läuft für PLZ {zip_code}... {penalty_msg}"):
+            
+            # IDs holen
             verfahren_id = VERFAHREN_OPTIONS[selected_verfahren]
             abrechnung_id = ABRECHNUNG_OPTIONS[selected_abrechnung]
             angebot_id = ANGEBOT_OPTIONS[selected_angebot]
             schwerpunkt_id = SCHWERPUNKT_OPTIONS[selected_schwerpunkt]
             
             try:
-                # Rufe die Scraper-Funktion auf (Importiert aus scraper_lib.py)
+                # Scraper aufrufen mit der aktuellen "Strafe"
                 results = scrape_therapists(
                     zip_code=zip_code, 
                     verfahren=verfahren_id, 
                     abrechnung=abrechnung_id, 
                     angebot=angebot_id, 
                     schwerpunkt=schwerpunkt_id,
-                    max_pages=max_pages
+                    max_pages=max_pages,
+                    additional_delay=st.session_state.delay_penalty
                 )
+                
+                # Update Session State NACH erfolgreicher Suche
+                st.session_state.last_search_time = datetime.now()
+                st.session_state.delay_penalty += 0.5 # Strafe erhöhen
                 
                 if not results:
                     st.warning("Keine Therapeuten gefunden. Versuche, die Filter weniger strikt zu setzen.")
                 else:
                     st.success(f"{len(results)} Therapeuten gefunden!")
                     
-                    # Daten in einen Pandas DataFrame umwandeln (besser für Darstellung & Export)
                     df = pd.DataFrame(results)
-                    
-                    # Spalten auswählen und umbenennen für die Anzeige
                     df_display = df[['name', 'last_modified', 'email', 'website', 'url']].copy()
                     df_display.columns = ['Name', 'Letzte Änderung', 'E-Mail', 'Webseite', 'Profil-Link']
                     
-                    # Interaktive Tabelle anzeigen
                     st.data_editor(
                         df_display,
                         column_config={
@@ -130,7 +190,6 @@ if start_search:
                         use_container_width=True
                     )
                     
-                    # CSV Download Button erstellen
                     csv = df_display.to_csv(index=False).encode('utf-8')
                     st.download_button(
                         label="📥 Ergebnisse als CSV herunterladen",
@@ -140,7 +199,6 @@ if start_search:
                     )
 
             except Exception as e:
-                # Generelle Fehlerbehandlung, falls der Scraper abstürzt
                 st.error(f"Ein Fehler ist aufgetreten: {e}")
 
 st.markdown("---")
