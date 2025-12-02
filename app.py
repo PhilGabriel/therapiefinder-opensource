@@ -69,7 +69,7 @@ with st.expander("📖 Anleitung: So funktioniert's", expanded=True):
     2.  **Starten:** Klicke auf "Suche starten".
     3.  **Ergebnisse:** Warte kurz. Die Ergebnisse erscheinen hier.
     4.  **Sortierung:** Die Liste ist automatisch sortiert: **Zuletzt aktualisierte Profile stehen oben.**
-    5.  **Kontakt:** Nutze die Links oder E-Mail-Buttons, um Therapeuten zu kontaktieren.
+    5.  **Kontakt & Dokumentation:** Nutze die Links oder E-Mail-Buttons für den Kontakt. Unter der Liste findest du zudem eine Vorlage für deine **Kontakte-Übersicht** zum Download.
     """)
 
 st.info("""
@@ -252,31 +252,35 @@ if start_search:
                         mime='text/csv',
                     )
 
+                    st.markdown("---")
+                    
+                    # Download-Button für die Kontakte-Übersicht (Tracking-Vorlage)
+                    st.markdown("### 📊 Deine Kontakte-Übersicht")
+                    st.markdown("Um den Überblick über deine Kontaktaufnahmen zu behalten, lade dir hier eine Vorlage herunter. Du kannst sie mit Excel oder Google Sheets bearbeiten.")
+
+                    tracking_template_columns = [
+                        "Name des Therapeuten",
+                        "Datum des Kontakts",
+                        "Kontaktaufnahme per (Telefon/E-Mail)",
+                        "Status (z.B. Warteliste, Termin erhalten, Absage, kein Rückruf)",
+                        "Notizen",
+                        "Nächster Schritt"
+                    ]
+                    tracking_df = pd.DataFrame(columns=tracking_template_columns)
+                    tracking_csv = tracking_df.to_csv(index=False).encode('utf-8')
+
+                    st.download_button(
+                        label="⬇️ Vorlage Kontakte-Übersicht herunterladen (CSV)",
+                        data=tracking_csv,
+                        file_name='Therapie_Kontakte_Uebersicht_Vorlage.csv',
+                        mime='text/csv',
+                    )
+
             except Exception as e:
                 st.error(f"Ein Fehler ist aufgetreten: {e}")
 
 st.markdown("---")
-# Download-Button für die Kontakte-Übersicht (Tracking-Vorlage)
-st.markdown("### 📊 Deine Kontakte-Übersicht")
-st.markdown("Um den Überblick über deine Kontaktaufnahmen zu behalten, lade dir hier eine Vorlage herunter. Du kannst sie mit Excel oder Google Sheets bearbeiten.")
 
-tracking_template_columns = [
-    "Name des Therapeuten",
-    "Datum des Kontakts",
-    "Kontaktaufnahme per (Telefon/E-Mail)",
-    "Status (z.B. Warteliste, Termin erhalten, Absage, kein Rückruf)",
-    "Notizen",
-    "Nächster Schritt"
-]
-tracking_df = pd.DataFrame(columns=tracking_template_columns)
-tracking_csv = tracking_df.to_csv(index=False).encode('utf-8')
-
-st.download_button(
-    label="⬇️ Vorlage Kontakte-Übersicht herunterladen (CSV)",
-    data=tracking_csv,
-    file_name='Therapie_Kontakte_Uebersicht_Vorlage.csv',
-    mime='text/csv',
-)
 # --- UI Layout: Hauptbereich - E-Mail-Vorlagen (zusätzlich) ---
 with st.expander("✉️ E-Mail-Vorlagen", expanded=False):
     st.markdown("""
