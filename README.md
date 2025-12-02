@@ -43,7 +43,7 @@ Um das Beste aus diesem Tool herauszuholen und deine Suche effizient zu gestalte
 
 ## ✨ Features
 
-*   **Einfache Suche:** Filterung nach Postleitzahl, Verfahren, Abrechnungsmethode, Therapieangebot und Arbeitsschwerpunkt.
+*   **Einfache Suche:** Filterung nach Postleitzahl, **Umkreis**, Verfahren, Geschlecht, Abrechnungsmethode, Therapieangebot, Wartezeit und Arbeitsschwerpunkt.
 *   **Sortierung nach Aktualität:** Ergebnisse werden automatisch so sortiert, dass Profile, die zuletzt bearbeitet wurden, ganz oben stehen.
 *   **E-Mail-Vorlagen:** Integrierte, kopierbare Textbausteine für Erstkontakt, Wartelisten-Anfragen und Kostenerstattungsverfahren.
 *   **Bewerbungs-Tracker:** Lade deine Suchergebnisse oder eine leere "Kontakte-Übersicht" als CSV herunter, um den Überblick über deine Anfragen zu behalten.
