@@ -4,6 +4,9 @@ Ein einfaches, aber mächtiges Tool, um die Suche nach Therapieplätzen auf [the
 
 Dieses Projekt bietet eine benutzerfreundliche Web-Oberfläche, um Therapeuten zu finden und die Ergebnisse nach dem **Datum der letzten Profil-Aktualisierung** zu sortieren. So findest du schneller aktive Profile.
 
+## Warum dieses Projekt?
+Ich bin selbst Betroffener. Ich habe selbst die frustrierende Erfahrung gemacht 100x Nachrichten an Therapeut:inne zu schicken und finde den Prozess einfach nur quälend. Gleichzeitig hasse ich es zu telefonieren - also habe ich mir ein Tool gebaut das mir schnell die Arbeit abnimmt. Das ganze so - dass es möglichst einfach ist. Dieses Projekt bleibt solange aktiv, bis es die gesetzlichen Krankenkassen hinbekommen eine zentrale Datenbank mit allen Therapeut:innen inkl. Kontaktmöglichkeit zu etablieren, so dass es die geforderte Anonymität gegenüber den Betroffenen sicherstellt und für jede/n zugägnlich ist. Verbunden ist dieses Projekt ebenfalls mit dem Appell: Hebt die Kassensitzpflicht für Psyschotherapeut:innen auf. 
+
 ## ✨ Features
 
 *   **Einfache Suche:** Filterung nach Postleitzahl, Verfahren, Abrechnungsmethode, Therapieangebot und Arbeitsschwerpunkt.
