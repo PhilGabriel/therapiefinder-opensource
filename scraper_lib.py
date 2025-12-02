@@ -110,53 +110,46 @@ def scrape_therapists(zip_code, verfahren, abrechnung, angebot, schwerpunkt, ges
             # WICHTIG: Kurze Pause + dynamische Drosselung
             time.sleep(random.uniform(0.5, 1.5) + additional_delay) 
 
-    # --- SCHRITT 2: Details pro Profil laden ---
-    # Jetzt besuchen wir jedes gefundene Profil einzeln.
+    # Enhance with details (Email, Website, Date)
     enhanced_therapists = []
-    
     with requests.Session() as session:
         for therapist in therapists:
+            # Erstelle eine Kopie des Basis-Therapeuten-Dicts und initialisiere 
+            # alle Details mit Standardwerten, um KeyError zu vermeiden,
+            # falls das Scrapen der Detailseite fehlschlägt.
+            therapist_data = therapist.copy()
+            therapist_data['last_modified'] = "N/A"
+            therapist_data['website'] = ""
+            therapist_data['email'] = ""
+
             # Profilseite laden
-            profile_content = get_page_content(session, therapist['url'])
+            profile_content = get_page_content(session, therapist_data['url'])
             if profile_content:
                 profile_soup = BeautifulSoup(profile_content, 'lxml')
                 
                 # -- Datum der letzten Änderung finden --
-                # Das ist das Kern-Feature: Wir suchen nach dem Text "Letzte Änderung am"
                 last_modified_tag = profile_soup.find(string=re.compile(r"Letzte Änderung am"))
                 if last_modified_tag:
-                    therapist['last_modified'] = last_modified_tag.strip().replace("Letzte Änderung am ", "")
-                else:
-                    therapist['last_modified'] = "N/A"
+                    therapist_data['last_modified'] = last_modified_tag.strip().replace("Letzte Änderung am ", "")
                 
                 # -- Webseite finden --
                 web_div = profile_soup.find('div', class_='contact-web')
                 if web_div:
                     link = web_div.find('a')
-                    therapist['website'] = link['href'] if link else ""
-                else:
-                    therapist['website'] = ""
+                    therapist_data['website'] = link['href'] if link else ""
 
                 # -- E-Mail entschlüsseln --
-                # Therapie.de schützt E-Mails oft durch eine einfache Verschlüsselung (Caesar-Chiffre o.ä.)
-                # oder versteckt sie in data-Attributen.
                 email_div = profile_soup.find('div', class_='contact-mail')
-                therapist['email'] = ""
                 if email_div:
                     email_btn = email_div.find('button', attrs={'data-contact-email': True})
                     if email_btn:
                         encrypted = email_btn['data-contact-email']
                         try:
-                            # Versuch einer einfachen Entschlüsselung (Shift -1)
-                            # Hinweis: Das funktioniert nicht immer garantiert für alle Profile,
-                            # ist aber der gängige Weg bei dieser Art von Schutz.
-                            therapist['email'] = "".join([chr(ord(c) - 1) for c in encrypted])
+                            therapist_data['email'] = "".join([chr(ord(c) - 1) for c in encrypted])
                         except:
-                            pass # Wenn es fehlschlägt, bleibt das Feld leer.
+                            pass
 
-            enhanced_therapists.append(therapist)
-            
-            # WICHTIG: Wieder Pause + dynamische Drosselung
+            enhanced_therapists.append(therapist_data)
             time.sleep(random.uniform(0.5, 1.0) + additional_delay)
             
     # --- SCHRITT 3: Sortierung ---
