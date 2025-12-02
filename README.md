@@ -1,12 +1,32 @@
 # 🧘 Therapiefinder Open Source
 
+[![Python 3.8+](https://img.shields.io/badge/Python-3.8%2B-blue)](https://www.python.org/)
+[![Streamlit](https://img.shields.io/badge/Streamlit-1.28.0%2B-orange)](https://streamlit.io/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
+
 Ein einfaches, aber mächtiges Tool, um die Suche nach Therapieplätzen auf [therapie.de](https://www.therapie.de) effizienter zu gestalten. 
 
 Dieses Projekt bietet eine benutzerfreundliche Web-Oberfläche, um Therapeuten zu finden und die Ergebnisse nach dem **Datum der letzten Profil-Aktualisierung** zu sortieren. So findest du schneller aktive Profile.
 **WICHTIG** Mit jeder Suchanfrage greifst du auf Therapie.de zu, scannst Seiten und erzeugst so Serverlast. Nutze dieses Tool mit Bedacht und nicht übermäßig. Das Tool selbst hat zwar Limiter, die die Abfragen reduzieren, sei trotzdem achtsam damit. Ich übernehme keine Haftung für missbräuchliche Nutzung.
 
+---
+### 📸 Screenshots
+
+*(Bitte hier deine Screenshots einfügen, z.B. so: `![App-Screenshot](assets/screenshots/app_screenshot_1.png)`)*
+---
+
 ## Warum dieses Projekt?
 Ich bin selbst Betroffener. Ich habe selbst die frustrierende Erfahrung gemacht 100x Nachrichten an Therapeut:inne zu schicken und finde den Prozess einfach nur quälend. Gleichzeitig hasse ich es zu telefonieren - also habe ich mir ein Tool gebaut das mir schnell die Arbeit abnimmt. Das ganze so - dass es möglichst einfach ist. Dieses Projekt bleibt solange aktiv, bis es die gesetzlichen Krankenkassen hinbekommen eine zentrale Datenbank mit allen Therapeut:innen inkl. Kontaktmöglichkeit zu etablieren, so dass es die geforderte Anonymität gegenüber den Betroffenen sicherstellt und für jede/n zugägnlich ist. Verbunden ist dieses Projekt ebenfalls mit dem Appell: Hebt die Kassensitzpflicht für Psyschotherapeut:innen auf. 
+
+## 💡 Tipps für eine erfolgreiche Suche
+
+Um das Beste aus diesem Tool herauszuholen und deine Suche effizient zu gestalten, beachte folgende Hinweise:
+
+*   **Datum der letzten Änderung:** Die Hauptfunktion dieses Tools ist die Sortierung nach dem Datum der letzten Profil-Aktualisierung. Ein kürzlich aktualisiertes Profil kann ein starkes Indiz dafür sein, dass der Therapeut aktiv ist und möglicherweise neue Patient:innen aufnimmt oder zumindest seine Informationen pflegt. Konzentriere dich daher zuerst auf die obersten Einträge der Ergebnisliste.
+*   **Filter gezielt einsetzen:** Beginne mit breiteren Filtern (z.B. nur Postleitzahl) und verfeinere diese schrittweise, wenn du zu viele Ergebnisse erhältst. Manchmal führt eine zu spezifische Suche dazu, dass du relevante Therapeut:innen übersiehst.
+*   **E-Mail-Adressen:** Das Tool versucht, E-Mail-Adressen (auch "verschlüsselte") zu extrahieren. Dies funktioniert nicht immer perfekt, aber es ist ein guter Startpunkt für die Kontaktaufnahme.
+*   **Webseite besuchen:** Nutze den Profil-Link, um direkt zur Profilseite des Therapeuten auf `therapie.de` zu gelangen. Dort findest du oft weitere Informationen.
 
 ## ✨ Features
 
@@ -54,6 +74,12 @@ Die Nutzung dieses Tools erfolgt auf eigene Gefahr. Der Autor übernimmt keine H
 *   **Keine Datenbank:** Das Tool speichert **keine** Suchergebnisse oder personenbezogene Daten dauerhaft auf deiner Festplatte. Alle Daten werden nur temporär im Arbeitsspeicher (RAM) gehalten, während das Programm läuft.
 *   **CSV-Export:** Wenn du auf "Ergebnisse als CSV herunterladen" klickst, wird eine Datei generiert und in deinem Standard-Download-Ordner gespeichert. Diese Datei liegt in deiner Verantwortung und kann wie jede andere Datei von dir gelöscht werden.
 *   **Spurenlos:** Sobald du das Browser-Fenster schließt oder das Programm beendest, sind die Suchergebnisse aus dem Arbeitsspeicher gelöscht.
+
+## 🐛 Bekannte Einschränkungen & mögliche Probleme
+
+*   **Geschwindigkeit:** Die Suche kann langsam erscheinen. Das liegt daran, dass das Tool bewusst Pausen zwischen den Anfragen einlegt, um die Server von `therapie.de` nicht zu überlasten. Dies ist wichtig, um die Nachhaltigkeit des Tools zu gewährleisten.
+*   **Unvollständige Ergebnisse:** Manchmal werden nicht alle erwarteten Informationen (z.B. E-Mail-Adressen) gefunden. Dies kann an unterschiedlichen Formatierungen auf den Profilseiten liegen oder an Verschlüsselungstechniken von `therapie.de`.
+*   **Fehlende Therapeut:innen:** Wenn du trotz lockerer Filter keine Therapeut:innen findest, kann es sein, dass zum aktuellen Zeitpunkt keine passenden Profile auf `therapie.de` verfügbar sind, die deinen Kriterien entsprechen.
 
 ## 🤝 Mitwirken
 
