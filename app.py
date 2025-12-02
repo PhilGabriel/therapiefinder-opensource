@@ -277,8 +277,21 @@ st.download_button(
     file_name='Therapie_Kontakte_Uebersicht_Vorlage.csv',
     mime='text/csv',
 )
-st.markdown("---")
-st.markdown("*Hinweis: Dieses Tool ist ein inoffizieller Helper und steht in keiner Verbindung zu therapie.de.*")
+st.markdown("---") # Trennlinie zum eigentlichen Footer
+st.markdown(
+    """
+    *Hinweis: Dieses Tool ist ein inoffizieller Helper und steht in keiner Verbindung zu therapie.de.*
+
+    ---
+    
+    **Du bist es wert – gib nicht auf! ❤️**
+
+    *   [**GitHub-Projekt**](https://github.com/PhilGabriel/therapiefinder-opensource)
+    *   [**Lizenz (MIT)**](https://github.com/PhilGabriel/therapiefinder-opensource/blob/main/LICENSE)
+    *   [**Installationsanleitung**](https://github.com/PhilGabriel/therapiefinder-opensource/blob/main/INSTALLATION.md)
+    *   [**Mitarbeiten**](https://github.com/PhilGabriel/therapiefinder-opensource/blob/main/CONTRIBUTING.md)
+    """
+)
 
 # --- UI Layout: Hauptbereich - E-Mail-Vorlagen (zusätzlich) ---
 with st.expander("✉️ E-Mail-Vorlagen", expanded=False):
@@ -292,7 +305,7 @@ Kopiere den Text (nutze das **Kopier-Icon** oben rechts im Code-Feld), füge die
 
 ich bin auf der Suche nach einem Therapieplatz und habe Ihr Profil auf therapie.de gefunden. Ich leide unter [kurze Beschreibung des Problems, z.B. Angstzuständen / Depressionen] und würde gerne ein Erstgespräch mit Ihnen vereinbaren, um zu prüfen, ob eine Therapie bei Ihnen für mich in Frage kommt.
 
-Ich bin [Versicherungsstatus, z.B. gesetzlich / privat] versichert.
+Ich bin [Versicherungsstatus, z.b. gesetzlich / privat] versichert.
 
 Über eine Rückmeldung freue ich mich sehr.
 
@@ -306,7 +319,7 @@ Mit freundlichen Grüßen,
 
 ich bin auf der Suche nach einem Therapieplatz und habe Ihr Profil auf therapie.de gefunden. Mir ist bewusst, dass es oft Wartezeiten gibt. Ich würde mich dennoch gerne für einen Therapieplatz vormerken lassen und mich ggf. auf Ihre Warteliste setzen lassen.
 
-Ich leide unter [kurze Beschreibung des Problems, z.B. Angstzuständen / Depressionen] und bin [Versicherungsstatus, z.B. gesetzlich / privat] versichert.
+Ich leide unter [kurze Beschreibung des Problems, z.B. Angstzuständen / Depressionen] und bin [Versicherungsstatus, z.b. gesetzlich / privat] versichert.
 
 Über eine Rückmeldung freue ich mich sehr.
 
@@ -323,7 +336,7 @@ ich bin auf der dringenden Suche nach einem Therapieplatz und habe Ihr Profil au
 
 Ich leide unter [kurze Beschreibung des Problems, z.B. Angstzuständen / Depressionen] und würde gerne ein Erstgespräch mit Ihnen vereinbaren, um zu klären, ob Sie mich im Rahmen eines Kostenerstattungsverfahrens behandeln würden.
 
-Ich bin [Versicherungsstatus, z.B. gesetzlich / privat] versichert.
+Ich bin [Versicherungsstatus, z.b. gesetzlich / privat] versichert.
 
 Über eine Rückmeldung freue ich mich sehr.
 
