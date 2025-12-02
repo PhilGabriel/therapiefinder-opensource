@@ -61,6 +61,13 @@ Bitte nutze dieses Tool verantwortungsbewusst und respektiere die Serverlast der
 
 Die Nutzung dieses Tools erfolgt auf eigene Gefahr. Der Autor übernimmt keine Haftung für Schäden, die durch die Nutzung entstehen, insbesondere nicht für rechtliche Konsequenzen, die aus dem Crawlen von Webseiten resultieren könnten. Bitte informiere dich über die AGB der Zielwebseite und handele verantwortungsvoll.
 
+## 🛡️ Datenschutz & Datenspeicherung
+
+*   **Lokale Ausführung:** Das gesamte Programm läuft lokal auf deinem Computer. Es werden keine Daten an externe Server (außer die notwendigen Suchanfragen an `therapie.de`) gesendet.
+*   **Keine Datenbank:** Das Tool speichert **keine** Suchergebnisse oder personenbezogene Daten dauerhaft auf deiner Festplatte. Alle Daten werden nur temporär im Arbeitsspeicher (RAM) gehalten, während das Programm läuft.
+*   **CSV-Export:** Wenn du auf "Ergebnisse als CSV herunterladen" klickst, wird eine Datei generiert und in deinem Standard-Download-Ordner gespeichert. Diese Datei liegt in deiner Verantwortung und kann wie jede andere Datei von dir gelöscht werden.
+*   **Spurenlos:** Sobald du das Browser-Fenster schließt oder das Programm beendest, sind die Suchergebnisse aus dem Arbeitsspeicher gelöscht.
+
 ## 🤝 Mitwirken
 
 Pull Requests sind willkommen! Wenn du Ideen hast, wie man das Tool verbessern kann, eröffne gerne ein Issue.
