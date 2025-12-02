@@ -13,7 +13,8 @@ Dieses Projekt bietet eine benutzerfreundliche Web-Oberfläche, um Therapeuten z
 ---
 ### 📸 Screenshots
 
-*(Bitte hier deine Screenshots einfügen, z.B. so: `![App-Screenshot](assets/screenshots/app_screenshot_1.png)`)*
+![Tool Startseite](assets/screenshots/Tool%20Startseite.jpg)
+![Tool Liste](assets/screenshots/Tool%20Liste.jpg)
 ---
 
 ## Warum dieses Projekt?
