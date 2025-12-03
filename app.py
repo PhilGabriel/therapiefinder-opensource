@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import requests
 import time
 from datetime import datetime, timedelta
 from scraper_lib import scrape_therapists
@@ -7,6 +8,13 @@ from scraper_lib import scrape_therapists
 # --- Konfiguration & Konstanten ---
 # Diese Dictionaries mappen die lesbaren Namen (die der Nutzer sieht)
 # auf die internen IDs, die therapie.de für die Suche verwendet.
+
+# Rate Limiting & Performance
+COOLDOWN_SECONDS = 15  # Wartezeit zwischen Suchanfragen
+DELAY_PENALTY_INCREMENT = 0.5  # Erhöhung der Wartezeit pro Suche in der Sitzung
+DEFAULT_ZIP_CODE = "12345"  # Standard-PLZ für Eingabefeld
+DEFAULT_MAX_PAGES = 2  # Standard-Anzahl der zu durchsuchenden Seiten
+MAX_PAGES_LIMIT = 5  # Maximale Anzahl der durchsuchbaren Seiten
 
 VERFAHREN_OPTIONS = {
     "Alle": "",
@@ -74,6 +82,48 @@ UMKREIS_OPTIONS = {
     "100 km": "100",
 }
 
+# E-Mail-Vorlagen
+EMAIL_TEMPLATE_ERSTGESPRAECH = """Sehr geehrte/r Frau/Herr [Name des Therapeuten],
+
+ich bin auf der Suche nach einem Therapieplatz und habe Ihr Profil auf therapie.de gefunden. Ich leide unter [kurze Beschreibung des Problems, z.B. Angstzuständen / Depressionen] und würde gerne ein Erstgespräch mit Ihnen vereinbaren, um zu prüfen, ob eine Therapie bei Ihnen für mich in Frage kommt.
+
+Ich bin [Versicherungsstatus, z.B. gesetzlich / privat] versichert.
+
+Über eine Rückmeldung freue ich mich sehr.
+
+Mit freundlichen Grüßen,
+
+[Dein Name]
+[Deine Telefonnummer]"""
+
+EMAIL_TEMPLATE_WARTELISTE = """Sehr geehrte/r Frau/Herr [Name des Therapeuten],
+
+ich bin auf der Suche nach einem Therapieplatz und habe Ihr Profil auf therapie.de gefunden. Mir ist bewusst, dass es oft Wartezeiten gibt. Ich würde mich dennoch gerne für einen Therapieplatz vormerken lassen und mich ggf. auf Ihre Warteliste setzen lassen.
+
+Ich leide unter [kurze Beschreibung des Problems, z.B. Angstzuständen / Depressionen] und bin [Versicherungsstatus, z.B. gesetzlich / privat] versichert.
+
+Über eine Rückmeldung freue ich mich sehr.
+
+Mit freundlichen Grüßen,
+
+[Dein Name]
+[Deine Telefonnummer]"""
+
+EMAIL_TEMPLATE_KOSTENERSTATTUNG = """Sehr geehrte/r Frau/Herr [Name des Therapeuten],
+
+ich bin auf der dringenden Suche nach einem Therapieplatz und habe Ihr Profil auf therapie.de gefunden. Da ich innerhalb einer angemessenen Frist keinen kassenärztlich zugelassenen Therapieplatz finden konnte, prüfe ich derzeit die Möglichkeit eines Kostenerstattungsverfahrens bei meiner Krankenkasse.
+
+Ich leide unter [kurze Beschreibung des Problems, z.B. Angstzuständen / Depressionen] und würde gerne ein Erstgespräch mit Ihnen vereinbaren, um zu klären, ob Sie mich im Rahmen eines Kostenerstattungsverfahrens behandeln würden.
+
+Ich bin [Versicherungsstatus, z.B. gesetzlich / privat] versichert.
+
+Über eine Rückmeldung freue ich mich sehr.
+
+Mit freundlichen Grüßen,
+
+[Dein Name]
+[Deine Telefonnummer]"""
+
 # --- Session State Initialisierung ---
 # Wir merken uns Dinge über die Session hinweg (z.B. wann zuletzt gesucht wurde).
 if 'last_search_time' not in st.session_state:
@@ -109,8 +159,8 @@ with st.sidebar:
     
     # Eingabefeld für die Postleitzahl mit Tooltip
     zip_code = st.text_input(
-        "Postleitzahl", 
-        value="50737", 
+        "Postleitzahl",
+        value=DEFAULT_ZIP_CODE,
         max_chars=5,
         help="Gib hier die 5-stellige Postleitzahl des Ortes ein, in dem du suchen möchtest."
     )
@@ -160,7 +210,7 @@ with st.sidebar:
     
     # Slider
     max_pages = st.slider(
-        "Anzahl zu durchsuchender Seiten", 1, 5, 2,
+        "Anzahl zu durchsuchender Seiten", 1, MAX_PAGES_LIMIT, DEFAULT_MAX_PAGES,
         help="Wie viele Ergebnisseiten auf therapie.de sollen durchsucht werden? Mehr Seiten = Längere Wartezeit."
     )
     
@@ -172,65 +222,29 @@ with st.sidebar:
     # E-Mail-Vorlagen zum Kopieren
     with st.expander("✉️ E-Mail-Vorlagen zum Kopieren"):
         st.markdown("""
-        Hier findest du Vorlagen, die dir das Anschreiben von Therapeuten erleichtern. 
+        Hier findest du Vorlagen, die dir das Anschreiben von Therapeuten erleichtern.
         Kopiere den Text, füge die Details ein und sende die E-Mail.
         """)
 
         st.subheader("Anfrage Erstgespräch (Standard)")
-        st.code(f"""Sehr geehrte/r Frau/Herr [Name des Therapeuten],
-
-ich bin auf der Suche nach einem Therapieplatz und habe Ihr Profil auf therapie.de gefunden. Ich leide unter [kurze Beschreibung des Problems, z.B. Angstzuständen / Depressionen] und würde gerne ein Erstgespräch mit Ihnen vereinbaren, um zu prüfen, ob eine Therapie bei Ihnen für mich in Frage kommt.
-
-Ich bin [Versicherungsstatus, z.B. gesetzlich / privat] versichert.
-
-Über eine Rückmeldung freue ich mich sehr.
-
-Mit freundlichen Grüßen,
-
-[Dein Name]
-[Deine Telefonnummer]""", language="text")
+        st.code(EMAIL_TEMPLATE_ERSTGESPRAECH, language="text")
 
         st.subheader("Anfrage Warteliste")
-        st.code(f"""Sehr geehrte/r Frau/Herr [Name des Therapeuten],
+        st.code(EMAIL_TEMPLATE_WARTELISTE, language="text")
 
-ich bin auf der Suche nach einem Therapieplatz und habe Ihr Profil auf therapie.de gefunden. Mir ist bewusst, dass es oft Wartezeiten gibt. Ich würde mich dennoch gerne für einen Therapieplatz vormerken lassen und mich ggf. auf Ihre Warteliste setzen lassen.
-
-Ich leide unter [kurze Beschreibung des Problems, z.B. Angstzuständen / Depressionen] und bin [Versicherungsstatus, z.B. gesetzlich / privat] versichert.
-
-Über eine Rückmeldung freue ich mich sehr.
-
-Mit freundlichen Grüßen,
-
-[Dein Name]
-[Deine Telefonnummer]""", language="text")
-        
         st.subheader("Anfrage Kostenerstattungsverfahren")
         st.warning("(Bitte informiere dich vorher bei deiner Krankenkasse über die Voraussetzungen!)")
-        st.code(f"""Sehr geehrte/r Frau/Herr [Name des Therapeuten],
-
-ich bin auf der dringenden Suche nach einem Therapieplatz und habe Ihr Profil auf therapie.de gefunden. Da ich innerhalb einer angemessenen Frist keinen kassenärztlich zugelassenen Therapieplatz finden konnte, prüfe ich derzeit die Möglichkeit eines Kostenerstattungsverfahrens bei meiner Krankenkasse.
-
-Ich leide unter [kurze Beschreibung des Problems, z.B. Angstzuständen / Depressionen] und würde gerne ein Erstgespräch mit Ihnen vereinbaren, um zu klären, ob Sie mich im Rahmen eines Kostenerstattungsverfahrens behandeln würden.
-
-Ich bin [Versicherungsstatus, z.B. gesetzlich / privat] versichert.
-
-Über eine Rückmeldung freue ich mich sehr.
-
-Mit freundlichen Grüßen,
-
-[Dein Name]
-[Deine Telefonnummer]""", language="text")
+        st.code(EMAIL_TEMPLATE_KOSTENERSTATTUNG, language="text")
 
 # --- Hauptlogik ---
 if start_search:
     # 1. Cooldown Check (Sicherheitsmechanismus)
     now = datetime.now()
-    cooldown_seconds = 15
-    
+
     if st.session_state.last_search_time is not None:
         elapsed = (now - st.session_state.last_search_time).total_seconds()
-        if elapsed < cooldown_seconds:
-            wait_time = int(cooldown_seconds - elapsed)
+        if elapsed < COOLDOWN_SECONDS:
+            wait_time = int(COOLDOWN_SECONDS - elapsed)
             st.error(f"🛑 Bitte warte noch {wait_time} Sekunden vor der nächsten Suche, um den Server nicht zu überlasten.")
             st.stop() # Bricht die Ausführung hier ab
             
@@ -271,7 +285,7 @@ if start_search:
                 
                 # Update Session State NACH erfolgreicher Suche
                 st.session_state.last_search_time = datetime.now()
-                st.session_state.delay_penalty += 0.5 # Strafe erhöhen
+                st.session_state.delay_penalty += DELAY_PENALTY_INCREMENT # Strafe erhöhen
                 
                 if not results:
                     st.warning("Keine Therapeuten gefunden. Versuche, die Filter weniger strikt zu setzen.")
@@ -293,7 +307,8 @@ if start_search:
                         use_container_width=True
                     )
                     
-                    csv = df_display.to_csv(index=False).encode('utf-8')
+                    # UTF-8-BOM für bessere Excel-Kompatibilität
+                    csv = df_display.to_csv(index=False, encoding='utf-8-sig')
                     st.download_button(
                         label="📥 Ergebnisse als CSV herunterladen",
                         data=csv,
@@ -316,7 +331,8 @@ if start_search:
                         "Nächster Schritt"
                     ]
                     tracking_df = pd.DataFrame(columns=tracking_template_columns)
-                    tracking_csv = tracking_df.to_csv(index=False).encode('utf-8')
+                    # UTF-8-BOM für bessere Excel-Kompatibilität
+                    tracking_csv = tracking_df.to_csv(index=False, encoding='utf-8-sig')
 
                     st.download_button(
                         label="⬇️ Vorlage Kontakte-Übersicht herunterladen (CSV)",
@@ -325,62 +341,31 @@ if start_search:
                         mime='text/csv',
                     )
 
+            except requests.exceptions.RequestException as e:
+                st.error(f"Netzwerkfehler: Verbindung zu therapie.de fehlgeschlagen. Bitte überprüfe deine Internetverbindung und versuche es erneut.")
+                st.error(f"Details: {e}")
             except Exception as e:
-                st.error(f"Ein Fehler ist aufgetreten: {e}")
+                st.error(f"Ein unerwarteter Fehler ist aufgetreten: {e}")
+                st.error("Bitte versuche es erneut oder melde das Problem.")
 
 st.markdown("---")
 
 # --- UI Layout: Hauptbereich - E-Mail-Vorlagen (zusätzlich) ---
 with st.expander("✉️ E-Mail-Vorlagen", expanded=False):
     st.markdown("""
-Hier findest du Vorlagen, die dir das Anschreiben von Therapeuten erleichtern. 
+Hier findest du Vorlagen, die dir das Anschreiben von Therapeuten erleichtern.
 Kopiere den Text (nutze das **Kopier-Icon** oben rechts im Code-Feld), füge die Details ein und sende die E-Mail.
     """)
 
     st.subheader("Anfrage Erstgespräch (Standard)")
-    st.code(f"""Sehr geehrte/r Frau/Herr [Name des Therapeuten],
-
-ich bin auf der Suche nach einem Therapieplatz und habe Ihr Profil auf therapie.de gefunden. Ich leide unter [kurze Beschreibung des Problems, z.B. Angstzuständen / Depressionen] und würde gerne ein Erstgespräch mit Ihnen vereinbaren, um zu prüfen, ob eine Therapie bei Ihnen für mich in Frage kommt.
-
-Ich bin [Versicherungsstatus, z.b. gesetzlich / privat] versichert.
-
-Über eine Rückmeldung freue ich mich sehr.
-
-Mit freundlichen Grüßen,
-
-[Dein Name]
-[Deine Telefonnummer]""", language="text")
+    st.code(EMAIL_TEMPLATE_ERSTGESPRAECH, language="text")
 
     st.subheader("Anfrage Warteliste")
-    st.code(f"""Sehr geehrte/r Frau/Herr [Name des Therapeuten],
+    st.code(EMAIL_TEMPLATE_WARTELISTE, language="text")
 
-ich bin auf der Suche nach einem Therapieplatz und habe Ihr Profil auf therapie.de gefunden. Mir ist bewusst, dass es oft Wartezeiten gibt. Ich würde mich dennoch gerne für einen Therapieplatz vormerken lassen und mich ggf. auf Ihre Warteliste setzen lassen.
-
-Ich leide unter [kurze Beschreibung des Problems, z.B. Angstzuständen / Depressionen] und bin [Versicherungsstatus, z.b. gesetzlich / privat] versichert.
-
-Über eine Rückmeldung freue ich mich sehr.
-
-Mit freundlichen Grüßen,
-
-[Dein Name]
-[Deine Telefonnummer]""", language="text")
-    
     st.subheader("Anfrage Kostenerstattungsverfahren")
     st.warning("(Bitte informiere dich vorher bei deiner Krankenkasse über die Voraussetzungen!)")
-    st.code(f"""Sehr geehrte/r Frau/Herr [Name des Therapeuten],
-
-ich bin auf der dringenden Suche nach einem Therapieplatz und habe Ihr Profil auf therapie.de gefunden. Da ich innerhalb einer angemessenen Frist keinen kassenärztlich zugelassenen Therapieplatz finden konnte, prüfe ich derzeit die Möglichkeit eines Kostenerstattungsverfahrens bei meiner Krankenkasse.
-
-Ich leide unter [kurze Beschreibung des Problems, z.B. Angstzuständen / Depressionen] und würde gerne ein Erstgespräch mit Ihnen vereinbaren, um zu klären, ob Sie mich im Rahmen eines Kostenerstattungsverfahrens behandeln würden.
-
-Ich bin [Versicherungsstatus, z.b. gesetzlich / privat] versichert.
-
-Über eine Rückmeldung freue ich mich sehr.
-
-Mit freundlichen Grüßen,
-
-[Dein Name]
-[Deine Telefonnummer]""", language="text")
+    st.code(EMAIL_TEMPLATE_KOSTENERSTATTUNG, language="text")
 
 st.markdown("---")
 st.markdown(
