@@ -1,4 +1,5 @@
 @echo off
+setlocal enabledelayedexpansion
 chcp 65001 >nul
 cls
 
@@ -51,7 +52,35 @@ REM Prüfe ob requirements.txt existiert
 if not exist requirements.txt (
     echo.
     echo    ❌ FEHLER: requirements.txt nicht gefunden!
-    echo    Bist du im richtigen Ordner?
+    echo.
+    echo    Du bist nicht im richtigen Ordner.
+    echo.
+    echo    Suche nach dem Therapiefinder-Ordner...
+    echo.
+
+    REM Suche nach Therapiefinder-Ordnern in häufigen Speicherorten
+    set FOUND=0
+    for /d %%i in ("%USERPROFILE%\Downloads\*therapiefinder*") do (
+        echo    Gefunden: %%i
+        set FOUND=1
+    )
+    for /d %%i in ("%USERPROFILE%\Desktop\*therapiefinder*") do (
+        echo    Gefunden: %%i
+        set FOUND=1
+    )
+    for /d %%i in ("%USERPROFILE%\Documents\*therapiefinder*") do (
+        echo    Gefunden: %%i
+        set FOUND=1
+    )
+
+    if !FOUND!==0 (
+        echo    Kein Therapiefinder-Ordner gefunden.
+        echo    Bitte stelle sicher, dass du die ZIP-Datei entpackt hast.
+    ) else (
+        echo.
+        echo    Bitte öffne einen dieser Ordner und führe therapiefinder-install.bat dort aus.
+    )
+    echo.
     pause
     exit /b 1
 )
