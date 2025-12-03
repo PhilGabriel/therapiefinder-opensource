@@ -1,0 +1,321 @@
+# 🏛️ Politisch aktiv werden
+
+Dieses Tool ist ein Pflaster auf einer strukturellen Wunde. Die eigentliche Lösung ist politisch. Wenn du wirklich etwas ändern willst, lies weiter.
+
+---
+
+## 🎯 Die Kernforderungen
+
+### 1. **Abschaffung oder Reform der Kassensitzpflicht**
+**Was ist das?**
+Psychotherapeut:innen brauchen eine "Kassenzulassung", um mit gesetzlichen Krankenkassen abrechnen zu können. Die Anzahl dieser Zulassungen ist künstlich begrenzt ("Bedarfsplanung"). Das führt dazu, dass es zu wenige Kassenplätze gibt, obwohl genug ausgebildete Therapeut:innen existieren.
+
+**Warum ist das ein Problem?**
+- Künstliche Verknappung von Therapieplätzen
+- Lange Wartezeiten (Monate bis Jahre)
+- Therapeut:innen ohne Kassensitz müssen privat abrechnen → nicht zugänglich für gesetzlich Versicherte
+
+**Was muss sich ändern?**
+- Kassensitzpflicht abschaffen ODER
+- Anzahl der Kassensitze massiv erhöhen (Bedarfsplanung realitätsnah anpassen)
+
+---
+
+### 2. **Zentrale, anonyme Datenbank für freie Therapieplätze**
+**Was fehlt aktuell?**
+Es gibt keine zentrale Stelle, wo man sehen kann, welche Therapeut:innen freie Plätze haben. Jede:r Betroffene muss hunderte Therapeut:innen einzeln kontaktieren.
+
+**Was muss her?**
+- Zentrale Datenbank (z.B. von den Kassenärztlichen Vereinigungen betrieben)
+- Therapeut:innen tragen selbst ein, wenn sie freie Plätze haben
+- Anonyme Suche für Patient:innen (DSGVO-konform)
+- Kein manuelles Telefonieren oder E-Mails schreiben nötig
+
+**Vorbild:**
+- Andere Länder haben funktionierende zentrale Vermittlungssysteme (z.B. NHS in Großbritannien, wenn auch mit eigenen Problemen)
+
+---
+
+### 3. **Bessere Vergütung für Kassenplätze**
+**Warum nehmen viele Therapeut:innen keine Kassenpatient:innen?**
+Weil Privatpatient:innen besser zahlen. Die Vergütung durch gesetzliche Krankenkassen ist oft unattraktiv, besonders in Städten mit hohen Mieten.
+
+**Was muss sich ändern?**
+- Erhöhung der Vergütungssätze für Kassentherapie
+- Bürokratieabbau (weniger Antragsaufwand für Therapeut:innen)
+- Gleichstellung der Vergütung zwischen verschiedenen Therapieformen (z.B. Gruppentherapie besser vergüten)
+
+---
+
+## 📬 An wen kannst du dich wenden?
+
+### 1. **Deine Krankenkasse**
+**Warum die Krankenkasse?**
+Krankenkassen haben ein Interesse daran, dass ihre Versicherten versorgt werden. Wenn genug Versicherte sich beschweren, entsteht Druck.
+
+**Was schreiben?**
+- Beschreibe deine Situation (wie lange suchst du schon?)
+- Wie viele Absagen hast du bekommen?
+- Frage nach Unterstützung (Kostenerstattungsverfahren, Vermittlungshilfe)
+- Fordere politisches Engagement der Krankenkasse für mehr Kassensitze
+
+**Musterbrief (siehe unten)**
+
+---
+
+### 2. **Patientenbeauftragte:r der Bundesregierung**
+**Aktuelle Patientenbeauftragte:** [Prüfe auf https://www.patientenbeauftragter.de](https://www.patientenbeauftragter.de)
+
+**Kontakt:**
+- **E-Mail:** patientenbeauftragter@bmg.bund.de
+- **Telefon:** 030 / 18 441 - 3420
+- **Postadresse:**
+  ```
+  Der Patientenbeauftragte der Bundesregierung
+  Bundesministerium für Gesundheit
+  11055 Berlin
+  ```
+
+**Was schreiben?**
+- Deine persönliche Geschichte
+- Wie lange du schon suchst
+- Forderungen (siehe oben: Kassensitzpflicht, zentrale Datenbank)
+
+---
+
+### 3. **Bundesgesundheitsminister:in**
+**Aktuell:** [Prüfe auf https://www.bundesgesundheitsministerium.de](https://www.bundesgesundheitsministerium.de)
+
+**Kontakt:**
+- **E-Mail:** poststelle@bmg.bund.de
+- **Postadresse:**
+  ```
+  Bundesministerium für Gesundheit
+  11055 Berlin
+  ```
+
+**Was schreiben?**
+- Forderung nach Reform der Bedarfsplanung
+- Forderung nach zentraler Vermittlungsstelle
+- Deine persönliche Betroffenheit
+
+---
+
+### 4. **Kassenärztliche Bundesvereinigung (KBV)**
+**Warum die KBV?**
+Die KBV ist für die Bedarfsplanung (= Anzahl der Kassensitze) mitverantwortlich.
+
+**Kontakt:**
+- **Website:** [https://www.kbv.de](https://www.kbv.de)
+- **E-Mail:** info@kbv.de
+- **Postadresse:**
+  ```
+  Kassenärztliche Bundesvereinigung
+  Herbert-Lewin-Platz 2
+  10623 Berlin
+  ```
+
+**Was schreiben?**
+- Kritik an der aktuellen Bedarfsplanung
+- Forderung nach mehr Kassensitzen
+- Vorschlag für zentrale Vermittlungsstelle
+
+---
+
+### 5. **Deine:n Bundestagsabgeordnete:n**
+**Warum?**
+Abgeordnete haben ein Interesse daran, die Sorgen ihrer Wähler:innen zu kennen. Wenn genug Menschen sich melden, wird das Thema politisch relevant.
+
+**Wie finde ich meine:n Abgeordnete:n?**
+- [https://www.bundestag.de/abgeordnete](https://www.bundestag.de/abgeordnete)
+- Gib deine Postleitzahl ein
+
+**Was schreiben?**
+- Deine persönliche Situation
+- Forderungen (siehe oben)
+- Bitte um politisches Engagement im Bundestag
+
+---
+
+### 6. **Petitionen & Kampagnen**
+**Bestehende Petitionen suchen:**
+- [https://epetitionen.bundestag.de](https://epetitionen.bundestag.de) (Petitionen beim Bundestag)
+- [https://www.change.org](https://www.change.org) (private Petitionsplattform)
+
+**Eigene Petition starten:**
+Wenn es noch keine passende Petition gibt, starte selbst eine. Petitionen beim Bundestag ab 50.000 Unterschriften müssen im Petitionsausschuss behandelt werden.
+
+---
+
+## ✉️ Musterbriefe
+
+### Musterbrief an deine Krankenkasse
+
+```
+Betreff: Unterstützung bei der Suche nach einem Psychotherapieplatz
+
+Sehr geehrte Damen und Herren,
+
+ich bin seit [Zeitraum, z.B. 6 Monaten] auf der Suche nach einem Psychotherapieplatz
+und habe bisher [Anzahl, z.B. 50] Therapeut:innen kontaktiert. Von diesen habe ich
+[Anzahl] Absagen erhalten. Die Wartezeiten bei den übrigen betragen teilweise über
+ein Jahr.
+
+Ich leide unter [optional: kurze Beschreibung, z.B. Depressionen / Angststörungen]
+und bin dringend auf professionelle Hilfe angewiesen. Die aktuelle Situation belastet
+mich zusätzlich und verschlimmert meine Symptome.
+
+Ich bitte Sie um folgende Unterstützung:
+1. Vermittlung eines Therapieplatzes über die Terminservicestelle 116 117
+2. Prüfung eines Kostenerstattungsverfahrens nach § 13 Abs. 3 SGB V
+3. Politisches Engagement Ihrer Krankenkasse für eine Reform der Kassensitzpflicht
+   und Schaffung einer zentralen Vermittlungsstelle für Psychotherapieplätze
+
+Die aktuelle Versorgungslage ist nicht hinnehmbar. Ich erwarte von meiner Krankenkasse,
+dass sie sich nicht nur für die Vermittlung von Einzelfällen einsetzt, sondern auch
+politisch für strukturelle Verbesserungen kämpft.
+
+Ich freue mich auf Ihre Rückmeldung und Ihre Unterstützung.
+
+Mit freundlichen Grüßen,
+[Dein Name]
+[Deine Versichertennummer]
+[Deine Kontaktdaten]
+```
+
+---
+
+### Musterbrief an Bundestagsabgeordnete:n
+
+```
+Betreff: Versorgungsnotstand bei Psychotherapieplätzen – Bitte um politisches Engagement
+
+Sehr geehrte:r [Name des/der Abgeordneten],
+
+als Bürger:in Ihres Wahlkreises möchte ich Sie auf einen dringenden Missstand
+aufmerksam machen: Die Versorgungslage bei Psychotherapieplätzen in Deutschland ist
+katastrophal.
+
+Ich selbst bin seit [Zeitraum] auf der Suche nach einem Therapieplatz und habe bisher
+[Anzahl] Absagen erhalten. Die durchschnittliche Wartezeit beträgt mehrere Monate bis
+über ein Jahr. In dieser Zeit verschlimmern sich psychische Erkrankungen – mit
+potenziell lebensbedrohlichen Folgen.
+
+Die Ursachen sind bekannt:
+1. Die Kassensitzpflicht begrenzt künstlich die Anzahl der Therapeut:innen, die mit
+   gesetzlichen Krankenkassen abrechnen können.
+2. Es gibt keine zentrale Vermittlungsstelle – jede:r Betroffene muss hunderte
+   Therapeut:innen einzeln kontaktieren.
+3. Die Vergütung für Kassenplätze ist unattraktiv, sodass viele Therapeut:innen nur
+   Privatpatient:innen nehmen.
+
+Ich fordere Sie auf, sich im Bundestag für folgende Maßnahmen einzusetzen:
+- Reform oder Abschaffung der Kassensitzpflicht
+- Schaffung einer zentralen, anonymen Datenbank für freie Therapieplätze
+- Erhöhung der Vergütung für Kassentherapie
+
+Psychische Gesundheit ist genauso wichtig wie körperliche Gesundheit. Die aktuelle
+Versorgungslage ist ein politisches Versagen, das nicht länger hinnehmbar ist.
+
+Ich bitte Sie um eine Stellungnahme, wie Sie sich für Verbesserungen einsetzen werden.
+
+Mit freundlichen Grüßen,
+[Dein Name]
+[Deine Adresse]
+[Deine Kontaktdaten]
+```
+
+---
+
+## 🗣️ Öffentlichkeit herstellen
+
+### Social Media
+- Teile deine Geschichte auf Twitter, Instagram, TikTok (wenn du dich damit wohlfühlst)
+- Nutze Hashtags wie #Psychotherapie #Therapieplatzsuche #Psychogate
+- Vernetze dich mit anderen Betroffenen
+
+### Medien kontaktieren
+- Lokale Zeitungen berichten oft über Einzelschicksale
+- Überregionale Medien (z.B. Spiegel, Zeit, Süddeutsche) haben oft Gesundheitsressorts
+- Kontaktiere Redaktionen und biete deine Geschichte an (anonym oder mit Klarnamen)
+
+### Selbsthilfegruppen
+- Vernetze dich mit anderen Betroffenen
+- Gemeinsam seid ihr lauter
+- [https://www.nakos.de](https://www.nakos.de) hilft bei der Suche nach Selbsthilfegruppen
+
+---
+
+## 📊 Fakten & Zahlen für deine Argumentation
+
+**Wartezeiten:**
+- Durchschnittlich 5-6 Monate Wartezeit auf einen Therapieplatz (Bundespsychotherapeutenkammer, 2022)
+- In ländlichen Regionen oft noch länger
+
+**Anzahl der Kassensitze:**
+- Circa 28.000 Kassensitze für Psychotherapie in Deutschland (2022)
+- Circa 50.000 approbierte Psychotherapeut:innen insgesamt
+- **22.000 Therapeut:innen können nicht mit Krankenkassen abrechnen**
+
+**Bedarfsplanung:**
+- Orientiert sich an Daten aus den 1990er Jahren
+- Berücksichtigt nicht die gestiegene Prävalenz psychischer Erkrankungen
+- Berücksichtigt nicht die Enttabuisierung (mehr Menschen suchen Hilfe)
+
+**Kostenerstattungsverfahren:**
+- Nur 1-2% der Therapien laufen über Kostenerstattung
+- Hohe Hürden, viel Bürokratie
+- Nicht alle Krankenkassen kooperieren gut
+
+**Quellen:**
+- Bundespsychotherapeutenkammer: [https://www.bptk.de](https://www.bptk.de)
+- Kassenärztliche Bundesvereinigung: [https://www.kbv.de](https://www.kbv.de)
+
+---
+
+## 💡 Was du sonst noch tun kannst
+
+### 1. **Sprich offen über psychische Gesundheit**
+Je mehr Menschen offen über Therapie sprechen, desto normaler wird es. Stigmatisierung ist Teil des Problems.
+
+### 2. **Unterstütze Organisationen**
+- **Bundespsychotherapeutenkammer (BPtK):** Setzt sich für bessere Versorgung ein
+- **Deutsche Psychotherapeuten Vereinigung (DPtV):** Berufsverband, der politisch aktiv ist
+- **Irrsinnig Menschlich e.V.:** Aufklärung über psychische Gesundheit
+
+### 3. **Wähle Parteien, die sich für Gesundheitsversorgung einsetzen**
+Prüfe Wahlprogramme und Abstimmungsverhalten zu Gesundheitspolitik.
+
+### 4. **Sei solidarisch**
+Auch wenn du selbst keinen Therapieplatz mehr brauchst – kämpfe weiter für andere.
+
+---
+
+## 🚨 Wichtig: Erwartungsmanagement
+
+**Realistische Erwartungen:**
+- Politische Veränderung dauert Jahre
+- Ein einzelner Brief wird nichts ändern
+- Aber: Viele Briefe zusammen erzeugen Druck
+
+**Was du NICHT erwarten solltest:**
+- Dass dein Brief dir sofort einen Therapieplatz bringt
+- Dass Politiker:innen sofort handeln
+- Dass sich über Nacht etwas ändert
+
+**Was du ERWARTEN kannst:**
+- Dass deine Stimme gehört wird
+- Dass du Teil einer Bewegung bist
+- Dass jede:r Brief, jede Petition, jeder Anruf einen kleinen Unterschied macht
+
+---
+
+## ❤️ Warum das wichtig ist
+
+Dieses Tool (therapiefinder-opensource) ist eine Krücke. Es hilft, den Prozess *etwas* erträglicher zu machen. Aber es löst das strukturelle Problem nicht.
+
+**Die echte Lösung ist politisch.**
+
+Wenn du Energie hast, nutze sie nicht nur für deine eigene Suche, sondern auch für politischen Druck. Wenn du keine Energie hast (was völlig verständlich ist), dann konzentriere dich auf deine Suche. Aber vielleicht teilst du dieses Dokument mit jemandem, der Energie hat.
+
+**Gemeinsam sind wir stärker. Und wir sind es wert, Hilfe zu bekommen. Nicht in 6 Monaten. Jetzt. ❤️**
