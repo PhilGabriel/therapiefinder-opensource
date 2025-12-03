@@ -143,7 +143,9 @@ def extract_therapist_details(session: requests.Session, therapist: Dict[str, st
         if email_btn:
             encrypted = email_btn['data-contact-email']
             try:
-                therapist_data['email'] = "".join([chr(ord(c) - 1) for c in encrypted])
+                decrypted_email = "".join([chr(ord(c) - 1) for c in encrypted])
+                # Mailto-Link für direktes Öffnen im E-Mail-Programm
+                therapist_data['email'] = f"mailto:{decrypted_email}" if decrypted_email else ""
             except (ValueError, TypeError) as e:
                 logger.warning(f"Fehler beim Entschlüsseln der E-Mail für {therapist_data['name']}: {e}")
                 therapist_data['email'] = ""
