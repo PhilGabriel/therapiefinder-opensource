@@ -72,6 +72,9 @@ Um das Beste aus diesem Tool herauszuholen und deine Suche effizient zu gestalte
 
 4. **Fertig!** Die App öffnet sich automatisch im Browser 🎉
 
+**⚠️ Hinweis beim ersten Start:**
+Streamlit wird beim ersten Start nach einer E-Mail-Adresse für Updates fragen. **Du musst keine E-Mail angeben** – drücke einfach **Enter**, um diesen Schritt zu überspringen. Deine Privatsphäre bleibt gewahrt, und das Tool funktioniert genauso.
+
 💡 **Tipp**: Du kannst `therapiefinder-start.bat` (Windows) bzw. `therapiefinder-start.sh` (Mac/Linux) als Verknüpfung auf deinen Desktop ziehen!
 
 ---
@@ -113,10 +116,13 @@ Die Nutzung dieses Tools erfolgt auf eigene Gefahr. Der Autor übernimmt keine H
 
 ## 🛡️ Datenschutz & Datenspeicherung
 
+**🔒 Deine Daten bleiben privat und werden NICHT gespeichert!**
+
 *   **Lokale Ausführung:** Das gesamte Programm läuft lokal auf deinem Computer. Es werden keine Daten an externe Server (außer die notwendigen Suchanfragen an `therapie.de`) gesendet.
 *   **Keine Datenbank:** Das Tool speichert **keine** Suchergebnisse oder personenbezogene Daten dauerhaft auf deiner Festplatte. Alle Daten werden nur temporär im Arbeitsspeicher (RAM) gehalten, während das Programm läuft.
+*   **Nur im Arbeitsspeicher:** Suchergebnisse existieren ausschließlich im RAM deines Computers, solange das Programm im Browser/Terminal läuft. Es gibt keine Log-Dateien, keine Datenbanken, keine persistente Speicherung.
 *   **CSV-Export:** Wenn du auf "Ergebnisse als CSV herunterladen" klickst, wird eine Datei generiert und in deinem Standard-Download-Ordner gespeichert. Diese Datei liegt in deiner Verantwortung und kann wie jede andere Datei von dir gelöscht werden.
-*   **Spurenlos:** Sobald du das Browser-Fenster schließt oder das Programm beendest, sind die Suchergebnisse aus dem Arbeitsspeicher gelöscht.
+*   **Spurenlos:** Sobald du das Browser-Fenster schließt oder das Programm beendest, sind die Suchergebnisse aus dem Arbeitsspeicher gelöscht und unwiederbringlich weg.
 
 ## 🐛 Bekannte Einschränkungen & mögliche Probleme
 
