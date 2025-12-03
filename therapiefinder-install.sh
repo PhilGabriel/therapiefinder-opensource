@@ -73,7 +73,26 @@ echo ""
 if [ ! -f "requirements.txt" ]; then
     echo -e "${RED}   ❌ FEHLER: requirements.txt nicht gefunden!${NC}"
     echo ""
-    echo "Bist du im richtigen Ordner?"
+    echo "Du bist nicht im richtigen Ordner."
+    echo ""
+    echo "Suche nach dem Therapiefinder-Ordner..."
+
+    # Suche im Home-Verzeichnis nach dem Projekt-Ordner (nur oberste 3 Ebenen)
+    FOUND_DIRS=$(find ~ -maxdepth 3 -type d -name "*therapiefinder*" 2>/dev/null | head -5)
+
+    if [ ! -z "$FOUND_DIRS" ]; then
+        echo ""
+        echo "Gefundene Therapiefinder-Ordner:"
+        echo "$FOUND_DIRS"
+        echo ""
+        echo "Bitte wechsle in einen dieser Ordner und führe den Installer erneut aus:"
+        echo "  cd [Pfad zum Ordner]"
+        echo "  ./therapiefinder-install.sh"
+    else
+        echo ""
+        echo "Kein Therapiefinder-Ordner gefunden."
+        echo "Bitte stelle sicher, dass du die ZIP-Datei entpackt hast."
+    fi
     echo ""
     exit 1
 fi

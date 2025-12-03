@@ -25,6 +25,9 @@ Willkommen! Diese Anleitung führt dich Schritt für Schritt durch die Installat
    - Die App öffnet sich automatisch im Browser
    - Fertig! 🎉
 
+**⚠️ Hinweis beim ersten Start:**
+Streamlit wird beim ersten Start nach einer E-Mail-Adresse für Updates fragen. **Du musst keine E-Mail angeben** – drücke einfach **Enter**, um diesen Schritt zu überspringen. Deine Privatsphäre bleibt gewahrt, und das Tool funktioniert genauso.
+
 **💡 Tipp für später**: Du kannst `therapiefinder-start.bat` als Verknüpfung auf deinen Desktop ziehen, um das Programm schnell zu starten.
 
 ### Für Mac/Linux-Nutzer:
@@ -52,6 +55,9 @@ Willkommen! Diese Anleitung führt dich Schritt für Schritt durch die Installat
      ```
    - Die App öffnet sich automatisch im Browser
    - Fertig! 🎉
+
+**⚠️ Hinweis beim ersten Start:**
+Streamlit wird beim ersten Start nach einer E-Mail-Adresse für Updates fragen. **Du musst keine E-Mail angeben** – drücke einfach **Enter**, um diesen Schritt zu überspringen. Deine Privatsphäre bleibt gewahrt, und das Tool funktioniert genauso.
 
 ---
 
@@ -151,6 +157,9 @@ streamlit run app.py
 
 Dein Browser sollte sich nun automatisch öffnen und das Tool anzeigen. Falls nicht, kopiere die Adresse (meist `http://localhost:8501`), die im schwarzen Fenster angezeigt wird, in deinen Browser.
 
+**⚠️ Hinweis beim ersten Start:**
+Streamlit wird beim ersten Start nach einer E-Mail-Adresse für Updates fragen. **Du musst keine E-Mail angeben** – drücke einfach **Enter**, um diesen Schritt zu überspringen. Deine Privatsphäre bleibt gewahrt, und das Tool funktioniert genauso.
+
 ---
 
 ## 🚀 Alternative Installation: Mit Docker
@@ -175,6 +184,9 @@ Wenn du [Docker](https://www.docker.com/) auf deinem System installiert hast, ka
     docker run -p 8501:8501 therapiefinder-app
     ```
     Dieser Befehl startet das Tool im Container und macht es auf deinem Computer unter `http://localhost:8501` verfügbar.
+
+**⚠️ Hinweis beim ersten Start:**
+Streamlit wird beim ersten Start nach einer E-Mail-Adresse für Updates fragen. **Du musst keine E-Mail angeben** – drücke einfach **Enter**, um diesen Schritt zu überspringen. Deine Privatsphäre bleibt gewahrt, und das Tool funktioniert genauso.
 
 ---
 
@@ -230,3 +242,17 @@ Hier sind Lösungen für die häufigsten Probleme:
 
 ### 5. PowerShell Fehler: "Das Ausführen von Skripts ist deaktiviert"
 *   **Lösung:** Nutze stattdessen die klassische "Eingabeaufforderung" (CMD) oder erlaube Skripte in PowerShell (google nach "PowerShell Set-ExecutionPolicy"). CMD ist für Anfänger meist einfacher.
+
+---
+
+## 🛡️ Datenschutz & Datenspeicherung
+
+**🔒 Deine Daten bleiben privat und werden NICHT gespeichert!**
+
+Dieses Tool wurde mit besonderem Augenmerk auf deine Privatsphäre entwickelt:
+
+*   **Lokale Ausführung:** Das gesamte Programm läuft lokal auf deinem Computer. Es werden keine Daten an externe Server (außer die notwendigen Suchanfragen an `therapie.de`) gesendet.
+*   **Keine Datenbank:** Das Tool speichert **keine** Suchergebnisse oder personenbezogene Daten dauerhaft auf deiner Festplatte.
+*   **Nur im Arbeitsspeicher:** Suchergebnisse existieren ausschließlich im RAM deines Computers, solange das Programm im Browser/Terminal läuft. Es gibt keine Log-Dateien, keine Datenbanken, keine persistente Speicherung.
+*   **CSV-Export:** Wenn du auf "Ergebnisse als CSV herunterladen" klickst, wird eine Datei generiert und in deinem Standard-Download-Ordner gespeichert. Diese Datei liegt in deiner Verantwortung und kann wie jede andere Datei von dir gelöscht werden.
+*   **Spurenlos:** Sobald du das Browser-Fenster schließt oder das Programm beendest (mit STRG+C im Terminal), sind die Suchergebnisse aus dem Arbeitsspeicher gelöscht und unwiederbringlich weg.
