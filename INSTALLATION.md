@@ -2,6 +2,63 @@
 
 Willkommen! Diese Anleitung führt dich Schritt für Schritt durch die Installation des **Therapiefinder Open Source** Tools. Sie ist so geschrieben, dass auch Personen ohne Programmierkenntnisse sie befolgen können.
 
+---
+
+## ⚡ Schnellstart: One-Click-Installer (Empfohlen!)
+
+**Die einfachste Methode - keine technischen Kenntnisse nötig!**
+
+### Für Windows-Nutzer:
+
+1. **Download**:
+   - Klicke auf [diesen Link](https://github.com/PhilGabriel/therapiefinder-opensource/archive/refs/heads/main.zip) oder oben auf GitHub auf den grünen Button "Code" → "Download ZIP"
+   - Entpacke die ZIP-Datei in einen Ordner (z.B. auf dem Desktop)
+
+2. **Installation**:
+   - Öffne den entpackten Ordner
+   - **Doppelklick** auf die Datei `therapiefinder-install.bat`
+   - Ein schwarzes Fenster öffnet sich und richtet alles automatisch ein (dauert ca. 2-3 Minuten)
+   - Warte, bis "Installation erfolgreich abgeschlossen!" erscheint
+
+3. **Starten**:
+   - **Doppelklick** auf die neu erstellte Datei `therapiefinder-start.bat`
+   - Die App öffnet sich automatisch im Browser
+   - Fertig! 🎉
+
+**💡 Tipp für später**: Du kannst `therapiefinder-start.bat` als Verknüpfung auf deinen Desktop ziehen, um das Programm schnell zu starten.
+
+### Für Mac/Linux-Nutzer:
+
+1. **Download**:
+   - Klicke auf [diesen Link](https://github.com/PhilGabriel/therapiefinder-opensource/archive/refs/heads/main.zip) oder oben auf GitHub auf den grünen Button "Code" → "Download ZIP"
+   - Entpacke die ZIP-Datei in einen Ordner
+
+2. **Installation**:
+   - Öffne das Terminal (Mac: Programme → Dienstprogramme → Terminal)
+   - Wechsle in den entpackten Ordner:
+     ```bash
+     cd Pfad/zum/therapiefinder-opensource
+     ```
+   - Führe den Installer aus:
+     ```bash
+     ./therapiefinder-install.sh
+     ```
+   - Warte, bis "Installation erfolgreich abgeschlossen!" erscheint
+
+3. **Starten**:
+   - Im Terminal ausführen:
+     ```bash
+     ./therapiefinder-start.sh
+     ```
+   - Die App öffnet sich automatisch im Browser
+   - Fertig! 🎉
+
+---
+
+## 📚 Manuelle Installation (Für erfahrene Nutzer oder bei Problemen)
+
+Falls der One-Click-Installer nicht funktioniert oder du die Installation lieber manuell durchführen möchtest, folge den Schritten unten:
+
 ## 1. Voraussetzungen
 
 Bevor wir starten, benötigst du zwei Dinge auf deinem Computer:
@@ -124,6 +181,30 @@ Wenn du [Docker](https://www.docker.com/) auf deinem System installiert hast, ka
 ## ❓ Fehlerbehebung (Troubleshooting)
 
 Hier sind Lösungen für die häufigsten Probleme:
+
+### 0. Probleme mit dem One-Click-Installer
+
+#### Windows: "Python ist nicht installiert"
+*   **Ursache:** Python ist nicht auf deinem System installiert.
+*   **Lösung:**
+    1. Lade Python von [python.org/downloads](https://www.python.org/downloads/) herunter
+    2. **WICHTIG**: Setze das Häkchen bei "Add Python to PATH" während der Installation
+    3. Starte `install.bat` erneut
+
+#### Mac/Linux: "Python 3 ist nicht installiert"
+*   **Ursache:** Python 3 ist nicht installiert oder nicht im PATH.
+*   **Lösung:**
+    - **macOS**: `brew install python3` (falls Homebrew installiert ist)
+    - **Linux (Ubuntu/Debian)**: `sudo apt install python3 python3-venv python3-pip`
+    - Führe dann `./therapiefinder-install.sh` erneut aus
+
+#### "Permission denied" beim Ausführen der Scripts
+*   **Ursache:** Die Scripts haben keine Ausführungsrechte.
+*   **Lösung:**
+    ```bash
+    chmod +x therapiefinder-install.sh therapiefinder-start.sh
+    ./therapiefinder-install.sh
+    ```
 
 ### 1. "Befehl nicht gefunden" (Command not found) bei `python` oder `pip`
 *   **Ursache:** Python ist nicht installiert oder wurde nicht dem "PATH" hinzugefügt.

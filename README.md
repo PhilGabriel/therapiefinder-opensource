@@ -54,6 +54,30 @@ Um das Beste aus diesem Tool herauszuholen und deine Suche effizient zu gestalte
 
 ## 🚀 Installation & Start
 
+### ⚡ Einfachste Methode: One-Click-Installer (Empfohlen für Einsteiger)
+
+**Keine technischen Kenntnisse nötig!** Der Installer richtet alles automatisch ein.
+
+1. **Download**: Lade das Projekt herunter
+   - Klicke oben auf den grünen Button "Code" → "Download ZIP"
+   - Entpacke die ZIP-Datei an einen Ort deiner Wahl
+
+2. **Installation**: Doppelklick auf die richtige Datei für dein System:
+   - **Windows**: `therapiefinder-install.bat` (doppelklicken)
+   - **Mac/Linux**: `therapiefinder-install.sh` (im Terminal: `./therapiefinder-install.sh`)
+
+3. **Starten**: Nach erfolgreicher Installation:
+   - **Windows**: Doppelklick auf `therapiefinder-start.bat`
+   - **Mac/Linux**: Im Terminal: `./therapiefinder-start.sh`
+
+4. **Fertig!** Die App öffnet sich automatisch im Browser 🎉
+
+💡 **Tipp**: Du kannst `therapiefinder-start.bat` (Windows) bzw. `therapiefinder-start.sh` (Mac/Linux) als Verknüpfung auf deinen Desktop ziehen!
+
+---
+
+### 📚 Weitere Installationsmethoden
+
 Eine **ausführliche Schritt-für-Schritt-Anleitung** (auch für Anfänger geeignet) sowie Hilfe bei Problemen findest du in der Datei **[INSTALLATION.md](INSTALLATION.md)**.
 
 **Schnellstart mit Docker:**
