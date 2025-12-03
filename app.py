@@ -130,6 +130,8 @@ if 'last_search_time' not in st.session_state:
     st.session_state.last_search_time = None
 if 'delay_penalty' not in st.session_state:
     st.session_state.delay_penalty = 0.0
+if 'knows_alternatives' not in st.session_state:
+    st.session_state.knows_alternatives = False
 
 # --- Streamlit Page Config ---
 st.set_page_config(page_title="Therapiefinder Open Source", page_icon="🧘", layout="wide")
@@ -137,8 +139,88 @@ st.set_page_config(page_title="Therapiefinder Open Source", page_icon="🧘", la
 # --- UI Layout: Hauptbereich ---
 st.title("🧘 Therapiefinder Open Source")
 
+# "Bevor du suchst"-Box (wenn noch nicht bestätigt)
+if not st.session_state.knows_alternatives:
+    st.info("👋 **Willkommen!** Bevor du suchst, lies bitte kurz die Box unten – sie kann dir Zeit und Nerven sparen.")
+
+    with st.container():
+        st.markdown("### 🆘 Kennst du diese Wege bereits?")
+        st.markdown("""
+        Bevor du mit diesem Tool suchst, prüfe bitte, ob du diese **offiziellen und oft schnelleren Wege** schon kennst:
+        """)
+
+        with st.expander("📞 116 117 – Terminservicestelle (Erstgespräch in 4 Wochen garantiert!)", expanded=False):
+            st.markdown("""
+            **Was ist das?**
+            Die gesetzlichen Krankenkassen sind verpflichtet, dir innerhalb von 4 Wochen ein Erstgespräch zu vermitteln.
+
+            **Wie?**
+            - Anrufen: **116 117** (kostenlos, 24/7)
+            - Online: [https://www.116117.de](https://www.116117.de)
+            - Oder direkt bei der Kassenärztlichen Vereinigung deines Bundeslandes
+
+            **Wichtig:** Das ist ein gesetzlicher Anspruch! Nutze ihn.
+            """)
+
+        with st.expander("💶 Kostenerstattungsverfahren (Krankenkasse zahlt Privattherapie)", expanded=False):
+            st.markdown("""
+            **Was ist das?**
+            Wenn du nachweisen kannst, dass du keinen Kassenplatz findest (ca. 5 Absagen), kann deine Krankenkasse die Kosten für eine:n Therapeut:in ohne Kassenzulassung übernehmen.
+
+            **Wie?**
+            1. Sammle Absagen von Kassentherapeut:innen (5-10 Stück, je nach Kasse)
+            2. Stelle einen Antrag bei deiner Krankenkasse (§13 Abs. 3 SGB V)
+            3. Suche eine:n Therapeut:in ohne Kassensitz
+
+            **Wichtig:** Antrag ERST stellen, DANN Therapie beginnen!
+
+            **Mehr Infos:** [Deutsche Psychotherapeuten Vereinigung](https://www.deutsche-psychotherapeuten-vereinigung.de/patienten/kostenerstattung/)
+            """)
+
+        with st.expander("🏥 Weitere Optionen (PIAs, Ausbildungsinstitute, Online-Therapie)", expanded=False):
+            st.markdown("""
+            **Psychiatrische Institutsambulanzen (PIAs):**
+            Ambulanzen an psychiatrischen Kliniken – oft kürzere Wartezeiten, interdisziplinäres Team.
+
+            **Ausbildungsinstitute:**
+            Therapeut:innen in Ausbildung (unter Supervision) – oft kürzere Wartezeiten, motiviert, oft Kassenzulassung.
+
+            **Online-Therapie / Videosprechstunde:**
+            Viele Therapeut:innen bieten Videotherapie an – erweitert deinen Suchradius auf ganz Deutschland.
+
+            **Selbsthilfegruppen:**
+            Überbrücken die Wartezeit und bieten Austausch. [https://www.nakos.de](https://www.nakos.de)
+            """)
+
+        st.markdown("---")
+        knows_alternatives_checkbox = st.checkbox(
+            "✅ Ich kenne diese Optionen und möchte trotzdem mit der Suche fortfahren",
+            value=False
+        )
+
+        if knows_alternatives_checkbox:
+            st.session_state.knows_alternatives = True
+            st.rerun()
+
+# Erwartungsmanagement-Hinweis
+st.warning("""
+⚠️ **Wichtig: Erwartungen realistisch setzen**
+
+**Was dieses Tool kann:**
+- Dir eine Liste von Therapeut:innen geben, sortiert nach Profil-Aktualisierung
+- E-Mail-Adressen automatisch extrahieren
+- Dir Zeit beim manuellen Durchklicken sparen
+
+**Was dieses Tool NICHT kann:**
+- Garantieren, dass jemand freie Plätze hat
+- Dir die emotionale Last der Suche abnehmen
+- "Zuletzt aktualisiert" bedeutet NICHT "freie Plätze" – es zeigt nur, dass das Profil gepflegt wird
+
+**Nutze dieses Tool parallel zu den offiziellen Wegen (116 117, Kostenerstattung, etc.) – nicht als Ersatz.**
+""")
+
 # Anleitung in einem Expander (aufklappbar)
-with st.expander("📖 Anleitung: So funktioniert's", expanded=True):
+with st.expander("📖 Anleitung: So funktioniert's", expanded=False):
     st.markdown("""
     1.  **Sucheinstellungen:** Gib links in der Leiste deine Postleitzahl ein und wähle Filter (z.B. Verfahren).
     2.  **Starten:** Klicke auf "Suche starten".
@@ -291,17 +373,24 @@ if start_search:
                     st.warning("Keine Therapeuten gefunden. Versuche, die Filter weniger strikt zu setzen.")
                 else:
                     st.success(f"{len(results)} Therapeuten gefunden!")
-                    
+
+                    # Hinweis zur Sortierung
+                    st.info("ℹ️ **Die Liste ist nach 'Letzte Änderung' sortiert.** Das bedeutet NICHT, dass Plätze frei sind – es zeigt nur, dass das Profil gepflegt wird. Trotzdem sind aktive Profile oft eher erreichbar als verwaiste Profile.")
+
                     df = pd.DataFrame(results)
                     df_display = df[['name', 'last_modified', 'email', 'website', 'url']].copy()
                     df_display.columns = ['Name', 'Letzte Änderung', 'E-Mail', 'Webseite', 'Profil-Link']
-                    
+
                     st.data_editor(
                         df_display,
                         column_config={
                             "Profil-Link": st.column_config.LinkColumn("Link"),
                             "Webseite": st.column_config.LinkColumn("Webseite"),
-                            "E-Mail": st.column_config.LinkColumn("E-Mail", display_text="E-Mail senden")
+                            "E-Mail": st.column_config.LinkColumn("E-Mail", display_text="E-Mail senden"),
+                            "Letzte Änderung": st.column_config.TextColumn(
+                                "Letzte Änderung",
+                                help="⚠️ Aktualisiert ≠ Plätze frei. Es zeigt nur, dass das Profil gepflegt wird."
+                            )
                         },
                         hide_index=True,
                         use_container_width=True

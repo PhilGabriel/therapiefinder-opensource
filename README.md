@@ -44,7 +44,7 @@ Um das Beste aus diesem Tool herauszuholen und deine Suche effizient zu gestalte
 ## ✨ Features
 
 *   **Einfache Suche:** Filterung nach Postleitzahl, **Umkreis**, Verfahren, Geschlecht, Abrechnungsmethode, Therapieangebot, Wartezeit und Arbeitsschwerpunkt.
-*   **Sortierung nach Aktualität:** Ergebnisse werden automatisch so sortiert, dass Profile, die zuletzt bearbeitet wurden, ganz oben stehen.
+*   **Sortierung nach Aktualität:** Ergebnisse werden automatisch so sortiert, dass Profile, die zuletzt bearbeitet wurden, ganz oben stehen. ⚠️ **Wichtig:** Ein aktualisiertes Profil bedeutet *nicht*, dass Plätze frei sind – es zeigt nur, dass das Profil gepflegt wird. Dennoch ist es sinnvoll, aktive Profile zuerst zu kontaktieren, da verwaiste Profile oft nicht mehr aktuell sind.
 *   **E-Mail-Vorlagen:** Integrierte, kopierbare Textbausteine für Erstkontakt, Wartelisten-Anfragen und Kostenerstattungsverfahren.
 *   **Bewerbungs-Tracker:** Lade deine Suchergebnisse oder eine leere "Kontakte-Übersicht" als CSV herunter, um den Überblick über deine Anfragen zu behalten.
 *   **Erweiterte Details:** Versucht automatisch, E-Mail-Adressen (auch "verschlüsselte") und Webseiten-Links aus den Profilen zu extrahieren.
@@ -131,9 +131,36 @@ Die Nutzung dieses Tools erfolgt auf eigene Gefahr. Der Autor übernimmt keine H
 *   **Unvollständige Ergebnisse:** Manchmal werden nicht alle erwarteten Informationen (z.B. E-Mail-Adressen) gefunden. Dies kann an unterschiedlichen Formatierungen auf den Profilseiten liegen oder an Verschlüsselungstechniken von `therapie.de`.
 *   **Fehlende Therapeut:innen:** Wenn du trotz lockerer Filter keine Therapeut:innen findest, kann es sein, dass zum aktuellen Zeitpunkt keine passenden Profile auf `therapie.de` verfügbar sind, die deinen Kriterien entsprechen.
 
+## ❓ Häufige Fragen & Transparenz
+
+Dieses Projekt hat Grenzen. Für ehrliche Antworten zu wichtigen Fragen lies die **[FAQ.md](FAQ.md)**:
+
+*   **Hilft das Tool wirklich, einen Platz zu finden?** (Spoiler: Es ist eine Krücke, keine Garantie)
+*   **Bedeutet "zuletzt aktualisiert" = freie Plätze?** (Spoiler: Nein)
+*   **Ist das Scraping legal?** (Spoiler: Grauzone)
+*   **Was passiert, wenn therapie.de das Tool blockiert?** (Spoiler: Siehe [CONTINGENCY.md](CONTINGENCY.md))
+*   **Alternative Wege zum Therapieplatz** (116 117, Kostenerstattung, PIAs, Ausbildungsinstitute)
+*   **Politisch aktiv werden** (Wenn du das System ändern willst, siehe [POLITIK.md](POLITIK.md))
+
+**Die FAQ gibt dir die Fakten – ohne Beschönigung, aber mit konstruktiven Lösungen.**
+
 ## 🤝 Mitwirken
 
 Pull Requests sind willkommen! Wenn du Ideen hast, wie man das Tool verbessern kann, eröffne gerne ein Issue.
+
+**Hat dir das Tool geholfen?** Lass einen ⭐ auf GitHub da! Das ist die einzige Metrik, die ich habe, um zu sehen, ob das Projekt nützlich ist. Jeder Stern motiviert mich, weiterzumachen.
+
+## 🏛️ Politisch aktiv werden
+
+Dieses Tool ist ein Pflaster, keine Heilung. Die echte Lösung ist politisch: **Abschaffung der Kassensitzpflicht**, **zentrale Datenbank für freie Plätze**, **bessere Vergütung für Kassentherapie**.
+
+Wenn du das System ändern willst, lies **[POLITIK.md](POLITIK.md)**. Dort findest du:
+*   Konkrete Forderungen
+*   Kontakte (Patientenbeauftragte, BMG, KBV, Bundestagsabgeordnete)
+*   Musterbriefe für deine Krankenkasse und Politiker:innen
+*   Tipps für politisches Engagement
+
+**Ein einzelner Brief ändert nichts. Aber tausend Briefe zusammen erzeugen Druck. Sei eine dieser tausend Stimmen. ❤️**
 
 ## ❤️ Danksagung & Tech-Stack
 
