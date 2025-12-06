@@ -81,15 +81,6 @@ Abgeordnete haben ein Interesse daran, die Sorgen ihrer Wähler:innen zu kennen.
 **Wie finde ich meine:n Abgeordnete:n?**
 - [https://www.bundestag.de/abgeordnete](https://www.bundestag.de/abgeordnete) → Postleitzahl eingeben
 
----
-
-### 6. **Petitionen & Kampagnen**
-**Bestehende Petitionen suchen:**
-- [https://epetitionen.bundestag.de](https://epetitionen.bundestag.de) (Petitionen beim Bundestag)
-- [https://www.change.org](https://www.change.org) (private Petitionsplattform)
-
-**Eigene Petition starten:**
-Petitionen beim Bundestag ab 50.000 Unterschriften müssen im Petitionsausschuss behandelt werden.
 
 ---
 
