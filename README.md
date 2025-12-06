@@ -157,7 +157,7 @@ Dieses Tool ist ein Pflaster, keine Heilung. Die echte Lösung ist politisch: **
 Wenn du das System ändern willst, lies **[POLITIK.md](POLITIK.md)**. Dort findest du:
 *   Konkrete Forderungen
 *   Kontakte (Patientenbeauftragte, BMG, KBV, Bundestagsabgeordnete)
-*   Musterbriefe für deine Krankenkasse und Politiker:innen
+*   Fakten & Zahlen für deine Argumentation
 *   Tipps für politisches Engagement
 
 **Ein einzelner Brief ändert nichts. Aber tausend Briefe zusammen erzeugen Druck. Sei eine dieser tausend Stimmen. ❤️**
