@@ -162,14 +162,13 @@ def scrape_therapists(
     geschlecht: str,
     terminzeitraum: str,
     umkreis: str,
-    max_pages: int = 2,
     additional_delay: float = 0.0
 ) -> List[Dict[str, str]]:
     """
     Hauptfunktion zum Sammeln der Therapeuten-Daten.
 
-    Durchsucht mehrere Ergebnisseiten, extrahiert die Basis-Infos und geht dann
-    auf jedes einzelne Profil, um Details wie E-Mail und "Letzte Änderung" zu holen.
+    Durchsucht ALLE verfügbaren Ergebnisseiten automatisch, extrahiert die Basis-Infos
+    und geht dann auf jedes einzelne Profil, um Details wie E-Mail und "Letzte Änderung" zu holen.
 
     Args:
         zip_code: Postleitzahl für die Suche.
@@ -180,13 +179,12 @@ def scrape_therapists(
         geschlecht: ID des Geschlechts (1=w, 2=m).
         terminzeitraum: ID der Wartezeit/Verfügbarkeit.
         umkreis: Radius in km (0, 5, 10, ...).
-        max_pages: Wie viele Seiten der Suchergebnisse durchsucht werden sollen.
         additional_delay: Zusätzliche Wartezeit in Sekunden pro Anfrage (zur Drosselung).
 
     Returns:
         Eine Liste von Dictionaries mit den Daten der Therapeuten.
     """
-    
+
     # Parameter für die Suchanfrage an therapie.de zusammenbauen
     search_params = {
         "ort": zip_code,
@@ -207,8 +205,9 @@ def scrape_therapists(
     # Die Session hat automatische Retry-Logik für Netzwerkfehler.
     with create_session_with_retries() as session:
 
-        # --- SCHRITT 1: Suchergebnisseiten durchlaufen ---
-        for page in range(1, max_pages + 1):
+        # --- SCHRITT 1: ALLE Suchergebnisseiten durchlaufen (automatische Pagination) ---
+        page = 1
+        while True:
             params = search_params.copy()
             if page > 1:
                 params['page'] = page
@@ -216,6 +215,7 @@ def scrape_therapists(
             # Seite laden
             content = get_page_content(session, BASE_URL, params=params)
             if not content:
+                logger.info(f"Pagination beendet: Seite {page} konnte nicht geladen werden.")
                 break # Wenn Seite leer oder Fehler, brechen wir ab.
 
             soup = BeautifulSoup(content, 'lxml')
@@ -224,7 +224,10 @@ def scrape_therapists(
             therapist_cards = soup.find_all('li', class_='panel-default')
 
             if not therapist_cards:
+                logger.info(f"Pagination beendet: Keine Ergebnisse mehr auf Seite {page}.")
                 break # Keine Ergebnisse mehr
+
+            logger.info(f"Seite {page}: {len(therapist_cards)} Therapeut:innen gefunden.")
 
             for card in therapist_cards:
                 link_tag = card.find('a')
@@ -237,6 +240,9 @@ def scrape_therapists(
                     # Duplikate vermeiden (falls jemand auf Seite 1 und 2 auftaucht)
                     if not any(t['url'] == profile_url for t in therapists):
                         therapists.append({"name": name, "url": profile_url})
+
+            # Nächste Seite
+            page += 1
 
             # WICHTIG: Kurze Pause + dynamische Drosselung
             time.sleep(random.uniform(MIN_DELAY_SEARCH, MAX_DELAY_SEARCH) + additional_delay)
