@@ -13,8 +13,6 @@ from scraper_lib import scrape_therapists
 COOLDOWN_SECONDS = 15  # Wartezeit zwischen Suchanfragen
 DELAY_PENALTY_INCREMENT = 0.5  # Erhöhung der Wartezeit pro Suche in der Sitzung
 DEFAULT_ZIP_CODE = "12345"  # Standard-PLZ für Eingabefeld
-DEFAULT_MAX_PAGES = 2  # Standard-Anzahl der zu durchsuchenden Seiten
-MAX_PAGES_LIMIT = 5  # Maximale Anzahl der durchsuchbaren Seiten
 
 VERFAHREN_OPTIONS = {
     "Alle": "",
@@ -238,44 +236,55 @@ Bitte nutze das Tool verantwortungsbewusst.
 # --- UI Layout: Seitenleiste (Sidebar) ---
 with st.sidebar:
     st.header("🔍 Sucheinstellungen")
-    
-    # Eingabefeld für die Postleitzahl mit Tooltip
+
+    # === 📍 Ort & Umkreis ===
+    st.subheader("📍 Ort & Umkreis")
+
     zip_code = st.text_input(
         "Postleitzahl",
         value=DEFAULT_ZIP_CODE,
         max_chars=5,
         help="Gib hier die 5-stellige Postleitzahl des Ortes ein, in dem du suchen möchtest."
     )
-    
-    # Dropdown-Menüs mit Tooltips
+
+    selected_umkreis = st.selectbox(
+        "Umkreis (km)",
+        options=list(UMKREIS_OPTIONS.keys()),
+        help="Suche in einem Umkreis um die angegebene Postleitzahl. 'Kein Umkreis' sucht nur in der exakten PLZ."
+    )
+
+    st.markdown("---")
+
+    # === 🏥 Therapieart ===
+    st.subheader("🏥 Therapieart")
+
     selected_verfahren = st.selectbox(
-        "Verfahren", 
+        "Verfahren",
         options=list(VERFAHREN_OPTIONS.keys()),
         help="Welches Therapieverfahren suchst du? (z.B. Verhaltenstherapie oder Psychoanalyse)"
     )
-    
-    selected_abrechnung = st.selectbox(
-        "Abrechnung", 
-        options=list(ABRECHNUNG_OPTIONS.keys()),
-        help="Wie möchtest du die Therapie bezahlen? Gesetzlich (GKV), Privat oder als Selbstzahler?"
-    )
-    
+
     selected_angebot = st.selectbox(
-        "Angebot", 
+        "Angebot",
         options=list(ANGEBOT_OPTIONS.keys()),
         help="Für wen ist die Therapie? Einzelperson, Paar, Gruppe oder Kind/Jugendlicher?"
     )
-    
+
     selected_schwerpunkt = st.selectbox(
-        "Schwerpunkt", 
+        "Schwerpunkt",
         options=list(SCHWERPUNKT_OPTIONS.keys()),
         help="Hast du ein spezielles Anliegen oder eine Diagnose? (z.B. Depression, ADHS, Angst)"
     )
 
-    selected_geschlecht = st.selectbox(
-        "Geschlecht",
-        options=list(GESCHLECHT_OPTIONS.keys()),
-        help="Bevorzugst du eine Therapeutin oder einen Therapeuten?"
+    st.markdown("---")
+
+    # === 💰 Praktisches ===
+    st.subheader("💰 Praktisches")
+
+    selected_abrechnung = st.selectbox(
+        "Abrechnung",
+        options=list(ABRECHNUNG_OPTIONS.keys()),
+        help="Wie möchtest du die Therapie bezahlen? Gesetzlich (GKV), Privat oder als Selbstzahler?"
     )
 
     selected_wartezeit = st.selectbox(
@@ -284,18 +293,22 @@ with st.sidebar:
         help="Filtere nach Therapeuten, die explizit freie Plätze oder kurzfristige Termine melden."
     )
 
-    selected_umkreis = st.selectbox(
-        "Umkreis (km)",
-        options=list(UMKREIS_OPTIONS.keys()),
-        help="Suche in einem Umkreis um die angegebene Postleitzahl. 'Kein Umkreis' sucht nur in der exakten PLZ."
+    st.markdown("---")
+
+    # === 👤 Persönliches ===
+    st.subheader("👤 Persönliches")
+
+    selected_geschlecht = st.selectbox(
+        "Geschlecht",
+        options=list(GESCHLECHT_OPTIONS.keys()),
+        help="Bevorzugst du eine Therapeutin oder einen Therapeuten?"
     )
-    
-    # Slider
-    max_pages = st.slider(
-        "Anzahl zu durchsuchender Seiten", 1, MAX_PAGES_LIMIT, DEFAULT_MAX_PAGES,
-        help="Wie viele Ergebnisseiten auf therapie.de sollen durchsucht werden? Mehr Seiten = Längere Wartezeit."
-    )
-    
+
+    st.markdown("---")
+
+    # Info zur automatischen Pagination
+    st.info("ℹ️ Das Tool durchsucht automatisch **alle** verfügbaren Ergebnisseiten. Je mehr Ergebnisse, desto länger dauert die Suche.")
+
     # Der "Start"-Button
     start_search = st.button("Suche starten", type="primary")
 
@@ -340,7 +353,7 @@ if start_search:
             penalty_msg = f" (Drosselung aktiv: +{st.session_state.delay_penalty}s pro Anfrage)"
             
         with st.spinner(f"Suche läuft für PLZ {zip_code}... {penalty_msg}"):
-            
+
             # IDs holen
             verfahren_id = VERFAHREN_OPTIONS[selected_verfahren]
             abrechnung_id = ABRECHNUNG_OPTIONS[selected_abrechnung]
@@ -353,15 +366,14 @@ if start_search:
             try:
                 # Scraper aufrufen mit der aktuellen "Strafe"
                 results = scrape_therapists(
-                    zip_code=zip_code, 
-                    verfahren=verfahren_id, 
-                    abrechnung=abrechnung_id, 
-                    angebot=angebot_id, 
+                    zip_code=zip_code,
+                    verfahren=verfahren_id,
+                    abrechnung=abrechnung_id,
+                    angebot=angebot_id,
                     schwerpunkt=schwerpunkt_id,
                     geschlecht=geschlecht_id,
                     terminzeitraum=wartezeit_id,
                     umkreis=umkreis_id,
-                    max_pages=max_pages,
                     additional_delay=st.session_state.delay_penalty
                 )
                 
