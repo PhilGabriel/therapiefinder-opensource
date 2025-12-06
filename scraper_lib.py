@@ -205,29 +205,47 @@ def scrape_therapists(
     # Die Session hat automatische Retry-Logik für Netzwerkfehler.
     with create_session_with_retries() as session:
 
-        # --- SCHRITT 1: ALLE Suchergebnisseiten durchlaufen (automatische Pagination) ---
-        page = 1
-        while True:
+        # --- SCHRITT 1: Erste Seite laden und maximale Seitenzahl ermitteln ---
+        content = get_page_content(session, BASE_URL, params=search_params)
+        if not content:
+            logger.warning("Erste Seite konnte nicht geladen werden.")
+            return []
+
+        soup = BeautifulSoup(content, 'lxml')
+
+        # Maximale Seitenzahl aus dem pagenav bottom Element ermitteln
+        max_pages = 1
+        pagenav = soup.find('ul', class_='pagenav bottom')
+        if pagenav:
+            page_items = pagenav.find_all('li')
+            for item in page_items:
+                link = item.find('a')
+                if link and link.text.strip().isdigit():
+                    page_num = int(link.text.strip())
+                    max_pages = max(max_pages, page_num)
+
+        logger.info(f"Maximale Seitenzahl ermittelt: {max_pages}")
+
+        # --- SCHRITT 2: ALLE Suchergebnisseiten durchlaufen ---
+        for page in range(1, max_pages + 1):
             params = search_params.copy()
             if page > 1:
                 params['page'] = page
-
-            # Seite laden
-            content = get_page_content(session, BASE_URL, params=params)
-            if not content:
-                logger.info(f"Pagination beendet: Seite {page} konnte nicht geladen werden.")
-                break # Wenn Seite leer oder Fehler, brechen wir ab.
-
-            soup = BeautifulSoup(content, 'lxml')
+                # Seite laden (außer Seite 1, die haben wir schon)
+                content = get_page_content(session, BASE_URL, params=params)
+                if not content:
+                    logger.warning(f"Seite {page} konnte nicht geladen werden, überspringe.")
+                    continue
+                soup = BeautifulSoup(content, 'lxml')
 
             # Die Therapeuten sind in Listen-Elementen (li) mit der Klasse 'panel-default'
             therapist_cards = soup.find_all('li', class_='panel-default')
 
             if not therapist_cards:
-                logger.info(f"Pagination beendet: Keine Ergebnisse mehr auf Seite {page}.")
-                break # Keine Ergebnisse mehr
+                logger.info(f"Keine Ergebnisse auf Seite {page}.")
+                continue
 
-            logger.info(f"Seite {page}: {len(therapist_cards)} Therapeut:innen gefunden.")
+            logger.info(f"Seite {page}/{max_pages}: {len(therapist_cards)} Therapeut:innen gefunden.")
 
             for card in therapist_cards:
                 link_tag = card.find('a')
@@ -241,19 +259,17 @@ def scrape_therapists(
                     if not any(t['url'] == profile_url for t in therapists):
                         therapists.append({"name": name, "url": profile_url})
 
-            # Nächste Seite
-            page += 1
+            # WICHTIG: Kurze Pause + dynamische Drosselung (außer nach der letzten Seite)
+            if page < max_pages:
+                time.sleep(random.uniform(MIN_DELAY_SEARCH, MAX_DELAY_SEARCH) + additional_delay)
 
-            # WICHTIG: Kurze Pause + dynamische Drosselung
-            time.sleep(random.uniform(MIN_DELAY_SEARCH, MAX_DELAY_SEARCH) + additional_delay)
-
-        # --- SCHRITT 2: Details für jeden Therapeuten laden ---
+        # --- SCHRITT 3: Details für jeden Therapeuten laden ---
         for therapist in therapists:
             therapist_data = extract_therapist_details(session, therapist)
             enhanced_therapists.append(therapist_data)
             time.sleep(random.uniform(MIN_DELAY_PROFILE, MAX_DELAY_PROFILE) + additional_delay)
-            
-    # --- SCHRITT 3: Sortierung ---
+
+    # --- SCHRITT 4: Sortierung ---
     # Wir sortieren die Ergebnisse so, dass das aktuellste Datum oben steht.
     enhanced_therapists.sort(key=lambda x: parse_date(x['last_modified']), reverse=True)
     
